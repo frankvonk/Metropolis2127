@@ -11,4 +11,4 @@ Javascript, HTML/CSS. OOP, MVC
 
 Visit and play it right now on:
 http://www.frankvonk.be/web_development.html
-(UNDER CONSTRUCTION)
+(PLAYABLE, YET STILL UNDER CONSTRUCTION)
