@@ -7,7 +7,7 @@ Build a utopian city aboveground, while keeping the workers below just healthy a
 
 
 Technical Data:
-Javascript, HTML/CSS. OOP
+Javascript, HTML/CSS. OOP, MVC
 
 Visit and play it right now on:
 http://www.frankvonk.be/web_development.html
