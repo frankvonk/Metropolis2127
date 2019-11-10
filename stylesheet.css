@@ -1,0 +1,148 @@
+/* HTML for Metropolis 2127
+   a Simulation/City builder/Dystopian Adventure Game
+   by Frank Vonk, visit www.frankvonk.be/metropolis2127.html */
+
+html {
+  background-color: #0d0221;
+
+
+}
+body {
+  padding: 0px;
+  margin: 0 auto;
+  width: 740px;
+  height: 700px;
+  background-color: #241734;
+  font-family: 'Telex', sans-serif;
+  color: crimson;
+  color: cornflowerblue;
+
+  color: aqua;
+}
+.wrapper {
+  position: relative;
+  float: left;
+  display: block;
+  height: 0px;
+}
+h1 {
+  color: #d40078;
+  padding: 10px 0;
+  margin: 0px;
+  font-size: 2em;
+  text-align: center;
+  font-style: italic;
+}
+section {
+  padding: 0;
+  margin: 0;
+  float: left;
+  height: 100px;
+  /* background-color: antiquewhite; */
+}
+p {
+  padding: 0;
+  margin: 0;
+  font-size: 0.7em;
+}
+
+/* BUTTONS */
+.buttons {
+  /* background-color: antiquewhite; */
+  float: left;
+  width: 75px;
+  margin-right: 0px;
+  height: 200px;
+}
+button {
+  background-color: aqua;
+  border-color:  #f6019d;
+  outline: none;
+  font-weight: bold;
+  width: 100%;
+  padding: 3px;
+  margin: 0;
+  color: #541388;
+}
+#zoomMax {
+  margin-top: 1.5em;
+  color: aqua;
+  background-color: hotpink;
+}
+.btnBuild {
+  border-right: '3px solid hotpink';
+}
+
+.buildOptions {
+  width: 96px;
+  display: flexbox;
+  /* height: 97px; */
+  float: left;
+  margin-right: 3px;
+  background-color: #541388;
+  border: 2px solid #f6019d;
+  border-left: none;
+}
+
+canvas {
+  position: relative;
+  border: 2px solid #f6019d;
+  /* background-color: antiquewhite; */
+  float: left;
+  clear: both;
+  image-rendering: pixelated;
+  /* image-rendering: crisp-edges; */
+}
+
+
+
+/* DATA */
+.data {
+  position: relative;
+  top: 380px;
+  height: 120px;
+
+  width: 350px;
+  /* background-color: antiquewhite; */
+  display: block;
+  clear: both;
+}
+/* GAME DATA */
+.game-data {
+  /* background-color: antiquewhite; */
+
+  /* position: absolute; */
+  height: 100px;
+  width: 130px;
+  /* top: 581px; */
+  float: left;
+
+}
+.game-data p {
+  padding: 0.1em 0 0 0.3em;
+  margin: 0;
+  left: 0;
+}
+
+/* MESSAGES */
+.messagesSection {
+  /* position: absolute; */
+  /* top: 581px; */
+  /* left: 150px; */
+  width: 170px;
+  float: left;
+}
+.messagesSection p {
+  padding: 0.3em 0 0 0;
+}
+#messages {
+  padding: 0;
+  margin: 0;
+  font-size: 0.5em;
+}
+#intro1jpg {
+  height: 10px;
+  width: 10px;
+  display: none;
+}
+

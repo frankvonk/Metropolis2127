@@ -1,0 +1,102 @@
+<!-- HTML for Metropolis 2127
+     a Simulation/City builder/Dystopian Adventure Game
+     by Frank Vonk, visit www.frankvonk.be/metropolis2127.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Metropolis 2127</title>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  <script type="text/javascript" src="model.js"></script>
+  <script type="text/javascript" src="controller.js"></script>
+
+  <!-- load designs for view.js -->
+  <script type="text/javascript" src="view/houses/fnDrawHouse1x1_01.js" ></script>
+  <script type="text/javascript" src="view/houses/fnDrawHouse1x1_02.js" ></script>
+  <script type="text/javascript" src="view/houses/fnDrawHouse1x1_03.js" ></script>
+  <script type="text/javascript" src="view/houses/fnDrawHouse1x1_04.js" ></script>
+  <script type="text/javascript" src="view/roads_paths_tracks/fnDrawRoad2Lane.js"></script>
+  <script type="text/javascript" src="view/fnAnimateIntroImage.js" ></script>
+  <script type="text/javascript" src="view/colors_sizes.js" ></script>
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<!-- <script type="text/javascript" src="view/" ></script> -->
+<script type="text/javascript" src="view.js" ></script>
+</head>
+
+<body>
+
+  <div id="wrapper">
+
+    <h1>Metropolis 2127</h1>
+    
+    <aside class="buttons">
+      <button id="house" class="btnBuild">houses</button>
+      <button id="road" class="btnBuild">roads</button>
+      <button id="inspect" class="btnBuild">inspect</button>
+      <button id="bulldozer" class="btnBuild">bulldozer</button>
+      <button id="zoomMax">zoom <small>max</small></button>
+      <!-- <button id="zoomMed">zoom <small>med</small></button> -->
+      <button id="zoomMin">zoom <small>min </small></button>
+    </aside>
+
+    <aside id="buildOptions" class="buildOptions">
+
+    </aside>
+
+
+    <section class="gameboardCanvas" id="eCanvasHTMLSection">
+      <!-- Height & width of canvas need to be specified here in order to work -->
+      <!-- <canvas height="560" width="560" id="gameboardCanvas"></canvas> -->
+      <!-- <canvas height='560px' width='560px' id="gameboardCanvas"></canvas> -->
+
+      <canvas id="gameboardCanvas"></canvas>
+    </section>
+
+    <!-- img to help with introfilm -->
+    <!-- <img src="intro3whitesquare.png" id="intro1jpg"> -->
+    <div class="data">
+      <section class="game-data">
+        <p>time <span id="time"> 0</span></p>
+        <p>money <span id="money"> 0</span></p>
+        <p>roads<span id="roads"> 0</span></p>
+        <p>houses<span id="housesCounter"> 0</span></p>
+        <!-- <p id="clock"></p> -->
+      </section>
+
+      <section class="messagesSection">
+          <p>Messages</p>
+          <p id="messages"></p>
+      </section>
+  </div>
+
+
+  </div>
+
+</body>
+</html>
