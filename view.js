@@ -6,17 +6,16 @@
 var sTestLinkView = ' View,';
 
 
+
 //════════╡ GLOBAL VARIABLES ╞═══════════════════════════════════════════════
 // Buttons
 let eBtnMouseMode = "";
 let i, j;
 // Messages and Errors to screen
 let sMessage;
-
-
-
 //════════╡ DOM ELEMENTS ╞═══════════════════════════════════════════════════
 //════════╡ END GLOBAL VARIABLES ╞═══════════════════════════════════════════
+
 
 
 //════════╡ GAMESTATE DATA AND MESSAGES ╞═════════════════════════════════════
@@ -86,6 +85,7 @@ function fnInspect(eMessages, aPlotClicked, y, x){
 //    eMessages.innerHTML = sMessage;
 //    console.log(sMessage);     
   eMessages.innerHTML = sMessage;
+  sMessage = '';
 } //══════╡ END INSPECTIONTOOL ╞═════════════════════════════════════════════
 
 
@@ -113,7 +113,7 @@ function fnBtnMouseCSS(sMouseMode) {
 
 //════════╡ FUNCTION FOR ANIMATION ON CANVAS ╞═══════════════════════════════
 function fnMainAnimation(c){
-  fnAnimateOutsidePlayerReach(c)
+  fnAnimateOutsidePlayerReach(c)  
   
   for(i=0; i<nNumPlots; i++){
     for(j=0; j<nNumPlots; j++){
@@ -121,37 +121,45 @@ function fnMainAnimation(c){
 
         if(aGrid[i][j].typeStructure == ''){
           cEmptyPlot = "#f6019d"; // hot pink
-          fnEmptyPlot(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cEmptyPlot);
+          emptyPlot(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cEmptyPlot);
         }
 
-        if(aGrid[i][j].typeStructure == 'road' & aRoads[i][j].type == '2lane'){    
-          // draw road
-          fnDrawRoad2Lane(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, i, j);
-        }
-        else if (aGrid[i][j].typeStructure == 'structure' & aStructures[i][j].type == 'house'){
-          fnDrawHouses(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, i, j); 
-        }
+        if(aGrid[i][j].typeStructure == 'road' & aRoads[i][j].type == '2lane')
+          road2Lane(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, i, j);
+
+        if (aGrid[i][j].typeStructure == 'structure' && aStructures[i][j].type == 'house')
+          houses(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, i, j); 
+
+        if (aGrid[i][j].typeStructure == 'structure' && aStructures[i][j].type == 'hospital')
+          hospital(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, i, j); 
+        
+        if (aGrid[i][j].typeStructure == 'structure' && aStructures[i][j].type == 'nightClub')
+          nightClub(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, i, j); 
 
         if (aGrid[i][j].hovercraft == 'hovercraftAvailable' || aGrid[i][j].hovercraft == 'hovercraftNotAvailable'){
           if(i>0 && j>0){
             if(aGrid[i][j].hovercraft == 'hovercraftAvailable'){
-              fnDrawHovercraft(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cHovercraftAvailable);
+              hovercraft(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cHovercraftAvailable);
             }
             else if(aGrid[i][j].hovercraft == 'hovercraftNotAvailable'){
-              fnDrawHovercraft(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cHovercraftNotAvailable);
+              hovercraft(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cHovercraftNotAvailable);
             }
           }
         } // End hovercraft if's
-
-
       } // End exclude outter loop
     } // End for loop on Y in grid
   } // End for loop on X in grid
 } //══════╡ END FUNCTION FOR ANIMATION ON CANVAS ╞═══════════════════════════
 
 
+
+
+
+
+
+
 //════════╡ ANIMATE HOVERING EFFECT ON MOUSEOVER ╞═══════════════════════════
-function fnDrawHovercraft(c, x, y, cHoverColor){
+function hovercraft(c, x, y, cHoverColor){
   c.globalAlpha = 0.3;
   c.fillStyle = cHoverColor;
   c.fillRect(x, y, plot, plot);
@@ -194,32 +202,34 @@ function fnBuildHouse(y, x){
     colorSet : Math.floor(Math.random()*3)+1,
     // nDesign determines and stores house style
     design : Math.floor(Math.random()*4)+1,
-    // Assign coordinates for animation
+//    design : 3,
+  }
+  // Assign coordinates for animation
+  aAnimation[y][x].pedestrianLevel.swimmer = {
     animationY : aGrid[y][x].canvasY +plot15Perc, // +plot15Perc is the designed starting point of swimmer in the pool.
     animationYConst : aGrid[y][x].canvasY,
     animationX : aGrid[y][x].canvasX,
     animationXConst : aGrid[y][x].canvasX,
     swimDirection: 'down'
-
   }
 } //══════╡ END BUILD HOUSE TOP FUNCTION ╞═══════════════════════════════════
 
 
 //════════╡ DRAW A HOUSE FROM THE ARRAY OF DESIGNS ╞═════════════════════════
-function fnDrawHouses(c, y, x, i, j){
+function houses(c, y, x, i, j){
   let design = aStructures[i][j].design;
   switch(design){
     case 1:
-      fnDrawHouse1x1_01(c, y, x, i, j);
+      house1x1_01(c, y, x, i, j);
       break;
     case 2:
-      fnDrawHouse1x1_02(c, y, x, i, j);
+      house1x1_02(c, y, x, i, j);
       break;
     case 3:
-      fnDrawHouse1x1_03(c, y, x, i, j);
+      house1x1_03(c, y, x, i, j);
       break;
     case 4:
-      fnDrawHouse1x1_04(c, y, x, i, j);
+      house1x1_04(c, y, x, i, j);
       break;
     }
 }
@@ -271,7 +281,7 @@ function fnCheckRoadNeighbour(y, x){
 //  if (aRoads[y][x]){ // works but only vertical
   if (x<0 || x>nNumPlots-1 || y<0 || y>nNumPlots-1) {
     // i got an error after i removed this
-    // console.log('waaa');
+    // console.log('whaaaat');
   }
   else if (aRoads[y][x].type == "2lane"){
 //    console.log(true);
@@ -279,7 +289,6 @@ function fnCheckRoadNeighbour(y, x){
   }
  //   }
 } //══════╡ END CHECK IF ROAD HAS ADJACENT ROADS ╞═══════════════════════════
-
 
 
 //════════╡ ASSIGN THE DIRECTION OF THE ROAD ╞═══════════════════════════════
@@ -371,7 +380,7 @@ let leftx = plot_x+1;   let lefty = plot_y;
 
 
 //════════╡ ANIMATE BORDERS OF EACH PLOT ╞═══════════════════════════════════
-function fnEmptyPlot(c, x, y, cEmptyPlot){
+function emptyPlot(c, x, y, cEmptyPlot){
   c.globalAlpha = 0.5;
   c.fillStyle = cEmptyPlot;
   // top
@@ -421,37 +430,62 @@ function fnAnimateOutsidePlayerReach(c){
 
 
 
+// Main Animation Loop 24 Frames Per Second
 
-//let nFrameCounter = 0;
 // FRAMERATE USED FOR CALLING FNMAINANIMATION 24 TIMES PER SECOND
-setInterval(function(c){ 
+let MilisecondsPerFrame = 41;
+//MilisecondsPerFrame = 410000;
+let nFrameCounter = 0;
+
+
+setInterval(function(){
+
   const eCanvas = document.getElementById('gameboardCanvas');
   var c = eCanvas.getContext("2d");
-  if(seconds == 0){
-//  fnLinesBackground(c);
-  }
-  if(seconds>1 && seconds <1){
-//    fnAnimateIntroImage(c);
-  }
-//  else if(seconds>1){
+
+  // Code for introduction film is commented due to lag
+  // if(seconds == 0){ fnLinesBackground(c); }
+  // if(seconds>1 /*&& seconds <1*/){ fnAnimateIntroImage(c); }
+//seconds += 1
+  //  else if(seconds>1){
     // CREATE IF, SO ONLY ANIMATED WHEN FRAMECOUNTER SAYS
     // THAT INTRO FILM IS OVER, THEN FADING IN TO GAMEBOARD.
+
     fnMainAnimation(c);
+
+//    fnUpperAnimation(c)
   //}
 //  swimmerX += 2;
-//nFrameCounter +0.0000001 
-//console.log('frame'+nFrameCounter)
+
+nFrameCounter += 1; 
+
+//console.log('nFrameCounter = ' + nFrameCounter)
+//console.log(nFrameCounter)
+//if(seconds){  l(seconds)}
 },
-50);
+MilisecondsPerFrame);
+
+//var seconds = 0;
+// function incrementSeconds() {
+// //  seconds += 1;
+// //  console.log("You have been here for " + seconds + " seconds.");
+// }
+// //var cancel = setInterval(incrementSeconds, 1000);
 
 
-
-var seconds = 0;
-function incrementSeconds() {
-  seconds += 1;
-//  console.log("You have been here for " + seconds + " seconds.");
+function fnTussenFunctie() {
+  const eCanvas = document.getElementById('gameboardCanvas');
+  var c = eCanvas.getContext("2d");
+  fnMainAnimation(c);
+  nFrameCounter += 1; 
 }
-//var cancel = setInterval(incrementSeconds, 1000);
+//window.requestAnimationFrame(fnTussenFunctie())
+
+
+
+
+
+
 
 
 

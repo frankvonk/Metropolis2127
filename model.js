@@ -6,23 +6,20 @@
 var sTestLinkModel = ' Model,';
 
 // Grid Plot on the game board / canvas, in pixels.
-const small = parseInt(window.devicePixelRatio*10);
-const large = window.devicePixelRatio*10;
-let plot = large;  // completely scalable at the moment,
-//plot = window.devicePixelRatio*18;
-plot = 40;
-//plot = window.devicePixelRatio*30;
-// numplots could later be split up in height/width
-var nNumPlots = 13;
+const plot = 100;
+
+// numplots could later be split up in height/width, now it's a square not rectangle 
+var nNumPlots = 9;
+
 // nSize is for creating basic grid. it should be at least 1 higher then nNumPlots
 // because of checking / looping for road direction
 var nSize = nNumPlots + 1;
 
 // Tax settings
+// TODO make these adjustable in a finance menu
+// TODO create object with these type of costs
 var nRoadTax2Lane = -1;
 var nHouseTax = 10;
-
-
 
 /*
 ARCHEOLOGY CODE HERE
@@ -45,133 +42,121 @@ let grid = [[c1r1, c2r1, c3r1, c4r1, c5r1, c6r1],
 // use this later for everything.
 // try to transfer the string in to a variable,
 // so the aHouses has ['c1r1'] in it, it can be called upon to get 
-// fnDrawHouse (c1r1) as it loops through the arrayPERSISTENT MEMORY
+// House (c1r1) as it loops through the arrayPERSISTENT MEMORY
+// END ARCHEOLOGY CODE HERE
 
 
 
 
+// Initialize all arrays which will hold gamestate data.
+// Fill with default values
+// Secondary task is creating gridOverlay for mousedetection
+// (has same size, structure and values)
+
+// Store animation data
+let aAnimation = [];
+// Financial data
+let aEconomy = [];
+// Main data: name, x&y coordinates, occupied.
+let aGrid = [];
+// Store roadtype, what route it leads to, etc. 
+let aRoads = [];
+// Stores where houses are build & other details
+let aStructures = [];
+
+//const gridOverlaytest = document.getElementById('gridOverlaytest')
+
+for(i=0; i<nSize; i++){
+
+  let horizontalArrayAnimation = [];
+  let horizontalArrayEconomy = [];
+  let horizontalArrayGrid = [];
+  let horizontalArrayRoads = [];
+  let horizontalArrayStructures = [];
+
+  for(j=0; j<nSize; j++){
+    horizontalArrayAnimation.push(0);
+    horizontalArrayEconomy.push(0);
+    horizontalArrayGrid.push(0);
+    horizontalArrayRoads.push(0);
+    horizontalArrayStructures.push(0);
+  } 
+
+  aAnimation.push(horizontalArrayAnimation);
+  aEconomy.push(horizontalArrayEconomy);
+  aGrid.push(horizontalArrayGrid);
+  aRoads.push(horizontalArrayRoads);
+  aStructures.push(horizontalArrayStructures);
 
 
+  for(j=0; j<nSize; j++){
 
+    aAnimation[i][j] = {
+      type: 'none',
+      colorSet: 0,
+      design: 0,
+      groundLevel: {
+        type: 'none',
+      },
+      pedestrianLevel: {
+        swimmer: {
+          animationX: 0,
+          animationXConst: 0,
+          animationY: 0, // animation x & y is for swimmer in pool
+          animationYConst: 0,
+          swimDirection: 'up' 
+        }
+      },
+      treeLevel: {
+        type: 'none',
+      },
+      birdLevel: {
+        type: 'none',
+      }
+    }
+    aEconomy[i][j] = {
+      type: 'none',
+      tax: 0,
+      income: 0,
+      maintenanceCosts: 0
+    }
+    aGrid[i][j] = {
+      name: "r" + i + 'c' + j, // ex ("c2r4") used for lockoverlay
+      canvasX: plot*j,   // j ^ horizontal 
+      canvasY: plot*i,   // i > vertical
+      typeStructure: "", // for type of construction, road/structure/etc
+      hovercraft: "",    // for hovering effect mouse
+    }
+    aRoads[i][j] = {
+      type: 'none',
+      neighbourTop: false,
+      neighbourRight: false,
+      neighbourBottom: false,
+      neighbourLeft: false,
+      direction: ''
+    }
+    aStructures[i][j] = {
+      type: 'none',
+      colorSet: 0,
+      design: 0,
+    }   
 
+    const cell = document.createElement('canvas');
+    cell.className = 'cell';
+    cell.id = "r" + i + 'c' + j;
 
-function fnInitializeArrays() {
+  //  row.appendChild(cell);
+  }
+ // gridOverlay.appendChild(row);
 }
 
-fnInitializeArrays();
-
-
-
-  // Initialize all arrays
-  //════════╡ START CITYGRID ╞═════════════════════════════════════
-  // Initialize array and fill with standard properties
-  let aGrid = [];
-  for(i=0; i<nSize; i++){
-    let horizontalArray = [];
-    for(j=0; j<nSize; j++){
-      horizontalArray.push(0);
-    }    
-    aGrid.push(horizontalArray);
-    for(j=0; j<nSize; j++){
-      let aPlotInGrid = {
-        name: "",      // should be name inserted ("c2r4")
-        canvasX: plot*j,  // j ^ horizontal 
-        canvasY: plot*i,  // i > vertical
-        typeStructure: "",      // for type of construction
-        hovercraft: "",      // for hovering effect mouse
-      }
-      aGrid[i][j] = aPlotInGrid;
-    }
-  }
-
-  //console.log(aGrid);
-
-  //════════╡ END CITYGRID ╞═══════════════════════════════════════
-
-  // Game State Money / Time
-  let dtTime = 0;
-
-
-
-
-  //════════╡ STRUCTURES / BUILDINGS ╞══════════════════════════════
-  // Store where houses are build & other details
-
-  // Initialize array and fill with standard properties
-  let aStructures = [];
-  for(i=0; i<nSize; i++){
-    let horizontalArray = [];
-    for(j=0; j<nSize; j++){
-      horizontalArray.push(0);
-    }    
-    aStructures.push(horizontalArray);
-    for(j=0; j<nSize; j++){
-      aStructures[i][j] = {
-        type: 'none',
-        colorSet: 0,
-        design: 0,
-        animationY: 0, // animation x & y is for swimmer in pool
-        animationYConst: 0,
-        animationX: 0,
-        animationXConst: 0,
-        swimDirection: 'up'
-      }
-    }
-  }
-
-  // Simple houses counter for speed optimization
-  let nHouses = 0;
-  //════════╡ END STRUCTURES / BUILDINGSHOUSESGRID ╞═══════════════
-
-
-  //════════╡ ECONOMY : TAX / INCOME ╞═════════════════════════════
-
-  // Initialize array and fill with standard properties
-  let aEconomy = [];
-  for(i=0; i<nSize; i++){
-    let horizontalArray = [];
-    for(j=0; j<nSize; j++){
-      horizontalArray.push(0);
-    }    
-    aEconomy.push(horizontalArray);
-    for(j=0; j<nSize; j++){
-      aEconomy[i][j] = {
-        type: 'none',
-        tax: 0
-      }
-    }
-  }
-  // Current amount of money
-  let nMoney = 0;
-  //════════╡ END ECONOMY : TAX / INCOME ╞═════════════════════════
-
-
-  //════════╡ ROADGRID ╞═══════════════════════════════════════════
-  // Store roadtype, what route it leads to, etc. 
-  //-----store T3_6_9 Cur3_6 etc...
-
-  // Initialize array and fill with standard properties
-  let aRoads = [];
-  for(i=0; i<nSize; i++){
-    let horizontalArray = [];
-    for(j=0; j<nSize; j++){
-      horizontalArray.push(0);
-    }    
-    aRoads.push(horizontalArray);
-    for(j=0; j<nSize; j++){
-      aRoads[i][j] = {
-        type: 'none',
-        neighbourTop: false,
-        neighbourRight: false,
-        neighbourBottom: false,
-        neighbourLeft: false,
-        direction: ''
-      }
-    }
-  }
-  // Current houses counter for tax purposes
-  let nRoads = 0;
-  //════════╡ END ROADGRID ╞═══════════════════════════════════════
+// Simple houses counter for speed optimization
+// later expand with housetax and sizes 
+let nHouses = 0;
+// Current amount of money
+let nMoney = 0;
+// Current houses counter for tax purposes
+let nRoads = 0;
 
 
 
@@ -182,19 +167,23 @@ fnInitializeArrays();
 
 
 
+
+
+
+
+
+// Retrieve gamestate data from cookie on startup
 if(JSON.parse(localStorage.getItem('userGameStateDump')) === null) {
-  console.log('bestaat niet');
+  console.log('No cookie Detected');
 }
 else {
   let gameState = JSON.parse(localStorage.getItem('userGameStateDump'));
-//  console.log(gameState);
+  console.log('Cookie gamestate data used =', gameState);
+  aAnimation = gameState.aAnimation;
   aGrid = gameState.aGrid;
-  aStructures = gameState.aStructures;
+  nHouses = gameState.nHouses;
   aEconomy = gameState.aEconomy;
   aRoads = gameState.aRoads;
-  nHouses = gameState.nHouses;
   nRoads = gameState.nRoads;
-  console.log('bestaat');
+  aStructures = gameState.aStructures;
 }
-
-

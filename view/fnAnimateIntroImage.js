@@ -50,9 +50,11 @@ let dropper4 = 219; // VERTICAL ON LETTERS
 
 
 opacityFade = 1;
+
 function fnAnimateIntroImage(c){
   var eHelp = document.getElementById('intro1jpg');
-  c.drawImage(eHelp, 0, 0, 547, 462);
+
+//  c.drawImage(eHelp, 0, 0, 547, 462);
   // 2153 x 1589
   // 215 x 159
   // 22 x 16
@@ -84,7 +86,7 @@ function fnAnimateIntroImage(c){
   //  swimmerX +=0.5;  }
 
 // FIRST LINES 
-/*
+
 if(seconds<10){
   let metrolines = "#f6019d";
    metrolines = "lightgrey";
@@ -238,6 +240,6 @@ if(seconds>1) {
     line15tx -= 14;
   }
 }
-*/
+}*/
  //════╡ END INTRODUCTION FILM ╞══════════════════════════════════════════
 
