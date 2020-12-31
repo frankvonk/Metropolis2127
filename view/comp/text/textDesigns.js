@@ -1,5 +1,6 @@
-// NORTHERN DIRECTION
 
+
+// NORTHERN DIRECTION
 charN_A = (c, x, y, color) => {
   c.fillStyle = color;
   c.fillRect(x,y,1,5);
@@ -22,6 +23,13 @@ charN_B = (c, x, y, color) => {
   c.fillRect(x+2,y+3,1,1);
   c.fillRect(x+1,y+4,1,1);
 }
+charN_D = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,5);
+  c.fillRect(x+2,y+1,1,3);
+  c.fillRect(x,y,2,1);
+  c.fillRect(x+1,y+4,1,1);
+}
 charN_E = (c, x, y, color) => {
   c.fillStyle = color;
   c.fillRect(x,y,1,5);
@@ -29,28 +37,54 @@ charN_E = (c, x, y, color) => {
   c.fillRect(x+1,y+2,1,1);
   c.fillRect(x+1,y+4,2,1);
 }
+charN_F = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,5);
+  c.fillRect(x+1,y,2,1);
+  c.fillRect(x+1,y+2,1,1);
+}
 charN_H = (c, x, y, color) => {
   c.fillStyle = color;
   c.fillRect(x,y,1,5);
   c.fillRect(x+1,y+2,1,1);
-  c.fillRect(x+p2,y,p1,p5);
+  c.fillRect(x+2,y,1,5);
+}
+charN_M = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x-1,y,1,5);
+  c.fillRect(x,y,1,1);
+  c.fillRect(x+1,y,1,5);
+  c.fillRect(x+2,y,1,1);
+  c.fillRect(x+3,y+1,1,4);
+}
+charN_N = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,5);
+  c.fillRect(x+1,y,1,1);
+  c.fillRect(x+2,y+1,1,4);
 }
 charN_I = (c, x, y, color) => {
   c.fillStyle = color;
-  c.fillRect(x,y+p2,p1,p3);
-  c.fillRect(x,y,p1,p1);
+  c.fillRect(x,y+2,1,3);
+  c.fillRect(x,y,1,1);
 }
 charN_L = (c, x, y, color) => {
   c.fillStyle = color;
-  c.fillRect(x,y,p1,p5);
-  c.fillRect(x,y+p4,p3,p1);
+  c.fillRect(x,y,1,5);
+  c.fillRect(x,y+4,3,1);
+}
+charN_N = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,5);
+  c.fillRect(x+1,y,1,1);
+  c.fillRect(x+2,y+1,1,4);
 }
 charN_O = (c, x, y, color) => {
   c.fillStyle = color;
-  c.fillRect(x,y,p1,p5);
-  c.fillRect(x+p1,y,p1,p1);
-  c.fillRect(x+p1,y+p4,p1,p1);
-  c.fillRect(x+p2,y,p1,p5);
+  c.fillRect(x,y,1,5);
+  c.fillRect(x+1,y,1,1);
+  c.fillRect(x+1,y+4,1,1);
+  c.fillRect(x+2,y,1,5);
 }
 charN_P = (c, x, y, color) => {
   c.fillStyle = color;
@@ -69,16 +103,16 @@ charN_R = (c, x, y, color) => {
 }
 charN_S = (c, x, y, color) => {
   c.fillStyle = color;
-  c.fillRect(x,y,p3,p1);
-  c.fillRect(x,y+p1,p1,p1);
-  c.fillRect(x,y+p2,p3,p1);
-  c.fillRect(x+p2,y+p3,p1,p1);
-  c.fillRect(x,y+p4,p3,p1);
+  c.fillRect(x,y,3,1);
+  c.fillRect(x,y+1,1,1);
+  c.fillRect(x,y+2,3,1);
+  c.fillRect(x+2,y+3,1,1);
+  c.fillRect(x,y+4,3,1);
 }
 charN_T = (c, x, y, color) => {
   c.fillStyle = color;
-  c.fillRect(x,y,p3,p1);
-  c.fillRect(x+p1,y,p1,p5);
+  c.fillRect(x,y,3,1);
+  c.fillRect(x+1,y,1,5);
 }
 charN_U = (c, x, y, color) => {
   c.fillStyle = color;
@@ -102,11 +136,15 @@ charN_Y = (c, x, y, color) => {
   c.fillRect(x,y+2,3,1);
   c.fillRect(x,y+4,3,1);
 }
+// SPECIAL CHARACTERS
+charN_Apos = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,2);
+}
 
 
 
 // WESTERN DIRECTION
-
 charW_E = (c, x, y, color) => {
   c.fillStyle = color;
   c.fillRect(x,y,1,2);
@@ -126,4 +164,140 @@ charW_R = (c, x, y, color) => {
 
 
 
+// SOUTHERN DIRECTION
+charS_B = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,5);
+  c.fillRect(x,y,-1,1);
+  c.fillRect(x-1,y+1,-1,1);
+  c.fillRect(x,y+2,-1,1);
+  c.fillRect(x-1,y+3,-1,1);
+  c.fillRect(x,y+4,-1,1);
+}
+charS_I = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,3);
+  c.fillRect(x,y+4,1,1);
+}
+charS_O = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,5);
+  c.fillRect(x+1,y,1,1);
+  c.fillRect(x+1,y+4,1,1);
+  c.fillRect(x+2,y,1,5);
+}
+charS_R = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,2);
+  c.fillRect(x+1,y+2,1,1);
+  c.fillRect(x,y+3,1,1);
+  c.fillRect(x+1,y+4,1,1);
+  c.fillRect(x+2,y,1,5);
+}
+charS_S = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,3,1);
+  c.fillRect(x,y+1,1,1);
+  c.fillRect(x,y+2,3,1);
+  c.fillRect(x+2,y+3,1,1);
+  c.fillRect(x,y+4,3,1);
+}
+charS_T = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y+4,3,1);
+  c.fillRect(x+1,y,1,5);
+}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// BIG LETTERS
+l_CharW_A = (c, x, y, colorOutline, colorFill) => {
+  c.fillStyle = colorOutline
+  c.fillRect(x+1,y,10,-3);
+  c.fillRect(x,y-1,3,-5);
+  c.fillRect(x+1,y-4,10,-3);
+  c.fillRect(x+4,y,3,-4);
+  c.fillStyle = colorFill
+  c.fillRect(x+1,y-1,9,-1);
+  c.fillRect(x+1,y-1,1,-4);
+  c.fillRect(x+1,y-5,9,-1);
+  c.fillRect(x+5,y-1,1,-4);
+}
+
+l_CharW_N = (c, x, y, colorOutline, colorFill) => {
+  c.fillStyle = colorOutline
+  c.fillRect(x,y,11,-3);
+  c.fillRect(x,y,3,-6);
+  c.fillRect(x+1,y-4,10,-3);
+  c.fillStyle = colorFill
+  c.fillRect(x+1,y-1,9,-1);
+  c.fillRect(x+1,y-1,1,-4);
+  c.fillRect(x+1,y-5,9,-1);
+}
+
+l_CharW_D = (c, x, y, colorOutline, colorFill) => {
+  c.fillStyle = colorOutline
+  c.fillRect(x,y,11,-3);
+  c.fillRect(x,y,3,-6);
+  c.fillRect(x+1,y-4,9,-3);
+  c.fillRect(x+8,y-1,3,-5);
+  c.fillStyle = colorFill
+  c.fillRect(x+1,y-1,9,-1);
+  c.fillRect(x+1,y-1,1,-4);
+  c.fillRect(x+1,y-5,9,-1);
+  c.fillRect(x+9,y-1,1,-4);
+}
+
+l_CharW_S = (c, x, y, colorOutline, colorFill) => {
+  c.fillStyle = colorOutline
+  c.fillRect(x,y-1,3,-6);
+  c.fillRect(x+1,y,5,-3);
+  c.fillRect(x+4,y-1,3,-5);
+  c.fillRect(x+5,y-4,5,-3);
+  c.fillRect(x+8,y,3,-6);
+  c.fillStyle = colorFill
+  c.fillRect(x+1,y-1,1,-5);
+  c.fillRect(x+1,y-1,5,-1);
+  c.fillRect(x+5,y-1,1,-5);
+  c.fillRect(x+5,y-5,5,-1);
+  c.fillRect(x+9,y-1,1,-5);
+}
+
+l_CharW_Y = (c, x, y, colorOutline, colorFill) => {
+  c.fillStyle = colorOutline
+  c.fillRect(x,y,6,-3);
+  c.fillRect(x,y-4,10,-3);
+  c.fillRect(x+4,y-1,3,-6);
+  c.fillRect(x+8,y,3,-6);
+  c.fillStyle = colorFill
+  c.fillRect(x+1,y-1,5,-1);
+  c.fillRect(x+1,y-5,9,-1);
+  c.fillRect(x+5,y-1,1,-5);
+  c.fillRect(x+9,y-1,1,-5);
+}
+
+l_CharW_Apos = (c, x, y, colorOutline, colorFill) => {
+  c.fillStyle = colorOutline
+  c.fillRect(x,y,3,-3);
+  c.fillRect(x+3,y,1,-2);
+  c.fillStyle = colorFill
+  c.fillRect(x+1,y-1,2,-1);
+}

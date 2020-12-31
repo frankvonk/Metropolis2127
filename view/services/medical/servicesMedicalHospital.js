@@ -4,20 +4,15 @@
 
 function hospital(c, x, y, i, j) {
 
-
-  
   c.globalAlpha = 1;
-
- 
 
   // Ground or grass
   c.fillStyle = "#777";
+  c.fillStyle = "silver";
+  c.fillStyle = "#aaa";
+  c.fillStyle = "lightgrey";
   c.fillRect(x, y, plot, plot);
   
-  // paths
-  c.fillStyle = "darkgrey";
-  //  c.fillRect(x+p28,y+p23,p16,p6);
-
   // Roof
   color = '#ccc';
   c.fillStyle = color;
@@ -52,10 +47,10 @@ function hospital(c, x, y, i, j) {
 
   // Flowers
   for (let i = 0; i < 5; i++){
-    treeXSmall(c, x+32, y+42+i*6);
+    fnBush(c, x+32, y+42+i*6);
   }
   for (let i = 0; i < 9; i++){
-    treeXSmall(c, x+96, y+10+i*6);
+    fnBush(c, x+96, y+10+i*6);
   }
   
   charW_E(c, x+45, y+78, 'white')

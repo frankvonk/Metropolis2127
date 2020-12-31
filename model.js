@@ -10,6 +10,7 @@ const plot = 100;
 
 // numplots could later be split up in height/width, now it's a square not rectangle 
 var nNumPlots = 9;
+// var nNumPlots = 12;
 
 // nSize is for creating basic grid. it should be at least 1 higher then nNumPlots
 // because of checking / looping for road direction
@@ -42,7 +43,7 @@ let grid = [[c1r1, c2r1, c3r1, c4r1, c5r1, c6r1],
 // use this later for everything.
 // try to transfer the string in to a variable,
 // so the aHouses has ['c1r1'] in it, it can be called upon to get 
-// House (c1r1) as it loops through the arrayPERSISTENT MEMORY
+// House (c1r1) as it loops through the array
 // END ARCHEOLOGY CODE HERE
 
 
@@ -64,7 +65,7 @@ let aRoads = [];
 // Stores where houses are build & other details
 let aStructures = [];
 
-//const gridOverlaytest = document.getElementById('gridOverlaytest')
+//const gridOverlaytest = document.getElementById('gridOverlay')
 
 for(i=0; i<nSize; i++){
 
@@ -122,8 +123,8 @@ for(i=0; i<nSize; i++){
     }
     aGrid[i][j] = {
       name: "r" + i + 'c' + j, // ex ("c2r4") used for lockoverlay
-      canvasX: plot*j,   // j ^ horizontal 
-      canvasY: plot*i,   // i > vertical
+      canvasX: plot*j,   // j > horizontal 
+      canvasY: plot*i,   // i ^ vertical
       typeStructure: "", // for type of construction, road/structure/etc
       hovercraft: "",    // for hovering effect mouse
     }
@@ -133,7 +134,11 @@ for(i=0; i<nSize; i++){
       neighbourRight: false,
       neighbourBottom: false,
       neighbourLeft: false,
-      direction: ''
+      direction: '',
+      exitTop: false,
+      exitRight: false,
+      exitBottom: false,
+      exitLeft: false,
     }
     aStructures[i][j] = {
       type: 'none',
@@ -141,9 +146,9 @@ for(i=0; i<nSize; i++){
       design: 0,
     }   
 
-    const cell = document.createElement('canvas');
-    cell.className = 'cell';
-    cell.id = "r" + i + 'c' + j;
+    // const cell = document.createElement('canvas');
+    // cell.className = 'cell';
+    // cell.id = "r" + i + 'c' + j;
 
   //  row.appendChild(cell);
   }
@@ -167,7 +172,7 @@ let nRoads = 0;
 
 
 
-
+ 
 
 
 

@@ -2,24 +2,23 @@
 
 function nightClub(c, x, y, i, j) {
 
-  
-    c.globalAlpha = 1;
-  
+      c.globalAlpha = 1;  
   
     // Ground or grass
     c.fillStyle = "#777";
+    c.fillStyle = "silver";
+    c.fillStyle = "#aaa";
+    c.fillStyle = "lightgrey";
     c.fillRect(x, y, plot, plot);
     
-    // paths
-    c.fillStyle = "darkgrey";
-    //  c.fillRect(x+p28,y+p23,p16,p6);
-  
     // Roof
     color = '#ccc';
+    color = '#999';
     c.fillStyle = color;
     c.fillRect(x+2, y+2, 84, 40);
     c.fillRect(x+2, y+2, 30, 84);
     color = '#aaa';
+    color = '#bbb';
     c.fillStyle = color;
     c.fillRect(x+3, y+3, 82, 38);
     c.fillRect(x+3, y+3, 28, 82);
@@ -47,11 +46,11 @@ function nightClub(c, x, y, i, j) {
     c.fillRect(x+90, y+86, 1, 12);
   
     // Flowers
-    for (let i = 0; i < 5; i++){
-      treeXSmall(c, x+32, y+42+i*6);
+    for (let ii = 0; ii < 5; ii++){
+      fnBush(c, x+32, y+42+ii*6);
     }
-    for (let i = 0; i < 9; i++){
-      treeXSmall(c, x+96, y+10+i*6);
+    for (let ii = 0; ii < 9; ii++){
+      fnBush(c, x+96, y+10+ii*6);
     }
     
   

@@ -7,13 +7,22 @@
 <head>
   <title>Metropolis 2127</title>
   <!-- <meta http-equiv="refresh" content="1"> -->
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <!-- <meta content="width=device-width, initial-scale=1" name="viewport" /> -->
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- Divers helper files --> 
   <script type="text/javascript" src="helperFiles/gridOverlayAutoloader.js"></script>
   <!-- <script type="text/javascript" src="view/comp/Helpers.js"></script> -->
+  <meta 
+    content="
+    initial-scale=1,
+              width=device-width, 
+             user-scalable=no"
+   name="viewport"            
+  >
+  <!-- <meta name="viewport" content="width=device-width, user-scalable=no"> -->
+                    
 
   <!-- TIME -->
   <script type="text/javascript" src="time.js"></script>
@@ -21,9 +30,9 @@
   <!-- Model is datasource, both gamestate and userdata -->
   <script type="text/javascript" src="model.js"></script>
 
+
   <!-- Controller is the Game Engine and glue holding this ship together -->
   <script type="text/javascript" src="controller.js"></script>
-
 
   <!-- load designs for view.js -->
   <!-- First load subsets like plants, before structure tiles use them -->
@@ -31,6 +40,7 @@
 
   <script type="text/javascript" src="view/comp/text/textDesigns.js"></script>
   <script type="text/javascript" src="view/comp/flora.js"></script>
+  <script type="text/javascript" src="view/comp/patterns.js"></script>
 
   <!-- Vehicles -->
   <script type="text/javascript" src="view/vehicles/vehicleAmbulance2.js"></script>
@@ -47,6 +57,7 @@
 
   <!-- Entertainment -->
   <script type="text/javascript" src="view/entertainment/nightClub.js" ></script>
+  <script type="text/javascript" src="view/entertainment/parkAndysCoffeebar.js" ></script>
 
   <!-- Services -->
   <!-- Hospital -->
@@ -61,43 +72,40 @@
 
   <!-- View is  -->
   <script type="text/javascript" src="view.js" ></script>
+
 </head>
 
-<body>
+<body id=bodyPage>
 
-  <div id="wrapper">
+  <!-- <div id="wrapper"> -->
 
     <header id="header">
 
       <table class="timeZone">
         <tr class="timeButtons">
           <td class="timeBtn" id="pauzeBtn">
-            <span class="pauzeBtn">&#9208;</span>
+            <span class="pauzeBtn">||</span>
           </td>
           <td class="timeBtn" id="playBtn">
-            <span class="playBtn">&#9205;</span>
+            <span class="playBtn">></span>
           </td>
           <td class="timeBtn" id="fasterBtn">
-            <span class="fasterBtn1">&#9205;
-              <span class="fasterBtn2">&#9205;</span></span></td>
+            <span class="fasterBtn">>></span>            
+          </td>
+          <td class="unicodeMagnifier">&#x1F50E;</td>
+          <td id="zoomMin"><span class=zoomMin>-</span></td>
+          <td id="zoomMax"><span class=zoomMax>+</span></td>  
         </tr>
+          
         <tr>
           <td class="dateTime" colspan="3">
             <span id="date"> 0</span>
-            <br>
+            <!-- <br> -->&nbsp;&nbsp;
             <span id="time"> 0</span>
           </td>
         </tr>
       </table>
-
-      <table class="zoomButtons">
-        <tr>
-          <td class="unicodeMagnifier">&#x1F50E;</td>
-          <td id="zoomMin">min</td>
-          <td id="zoomMed">med</td>
-          <td id="zoomMax">max</td>
-        </tr>
-      </table>
+ 
       
 
       <section class="gateStateData">
@@ -121,214 +129,69 @@
 
 
     <section id="eCanvasHTMLSection">
-      <!-- Height & width of canvas needed to be specified here in order to work -->
-      <!-- <canvas height="560" width="560" id="gameboardCanvas"></canvas> -->
-      <!-- <canvas height='560px' width='560px' id="gameboardCanvas"></canvas> -->
 
-      <canvas id="gameboardCanvas"></canvas>
+      <!-- Subterrainian world -->
+      <canvas id="canvasMolochLevel"></canvas>
 
-      <div id="test"></div>
+      <!-- Grass/water/roads/lower buildings -->
+      <canvas id="canvasGroundLevel"></canvas>
 
+      <!-- Pedestrians/cars -->
+      <canvas id="canvasPedestrianLevel"></canvas>
 
+      <!-- Trees/upperlevels of buildings like high balconys/bridges -->
+      <canvas id="canvasTreeLevel"></canvas>
 
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
+      <!-- top level animation/birds/planes/drones -->
+      <canvas id="canvasBirdLevel"></canvas>
+      
+      <!-- Indicating plot is available for selected action, semi-transparent layer over all animation on plot -->
+      <canvas id="canvasHovercraft"></canvas>
 
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
-      <!-- READ ME  -->
+      <!-- Mouse detection helping <div's> -->
+      <div id="gridOverlay"></div>
 
-      <div
-        id="gridOverlay"
-      >  
-        <div class="row">
-          <canvas id="r0c0" class="cell"></canvas>
-          <canvas id="r0c1" class="cell"></canvas>
-          <canvas id="r0c2" class="cell"></canvas>
-          <canvas id="r0c3" class="cell"></canvas>
-          <canvas id="r0c4" class="cell"></canvas>
-          <canvas id="r0c5" class="cell"></canvas>
-          <canvas id="r0c6" class="cell"></canvas>
-          <canvas id="r0c7" class="cell"></canvas>
-          <canvas id="r0c8" class="cell"></canvas>
-          <canvas id="r0c9" class="cell"></canvas>
-        </div>
-        <div class="row">
-          <canvas id="r1c0" class="cell"></canvas>
-          <canvas id="r1c1" class="cell"></canvas>
-          <canvas id="r1c2" class="cell"></canvas>
-          <canvas id="r1c3" class="cell"></canvas>
-          <canvas id="r1c4" class="cell"></canvas>
-          <canvas id="r1c5" class="cell"></canvas>
-          <canvas id="r1c6" class="cell"></canvas>
-          <canvas id="r1c7" class="cell"></canvas>
-          <canvas id="r1c8" class="cell"></canvas>
-          <canvas id="r1c9" class="cell"></canvas>
-        </div>
-        <div class="row">
-          <canvas id="r2c0" class="cell"></canvas>
-          <canvas id="r2c1" class="cell"></canvas>
-          <canvas id="r2c2" class="cell"></canvas>
-          <canvas id="r2c3" class="cell"></canvas>
-          <canvas id="r2c4" class="cell"></canvas>
-          <canvas id="r2c5" class="cell"></canvas>
-          <canvas id="r2c6" class="cell"></canvas>
-          <canvas id="r2c7" class="cell"></canvas>
-          <canvas id="r2c8" class="cell"></canvas>
-          <canvas id="r2c9" class="cell"></canvas>
-        </div>
-        <div class="row">
-          <canvas id="r3c0" class="cell"></canvas>
-          <canvas id="r3c1" class="cell"></canvas>
-          <canvas id="r3c2" class="cell"></canvas>
-          <canvas id="r3c3" class="cell"></canvas>
-          <canvas id="r3c4" class="cell"></canvas>
-          <canvas id="r3c5" class="cell"></canvas>
-          <canvas id="r3c6" class="cell"></canvas>
-          <canvas id="r3c7" class="cell"></canvas>
-          <canvas id="r3c8" class="cell"></canvas>
-          <canvas id="r3c9" class="cell"></canvas>
-        </div>
-        <div class="row">
-          <canvas id="r4c0" class="cell"></canvas>
-          <canvas id="r4c1" class="cell"></canvas>
-          <canvas id="r4c2" class="cell"></canvas>
-          <canvas id="r4c3" class="cell"></canvas>
-          <canvas id="r4c4" class="cell"></canvas>
-          <canvas id="r4c5" class="cell"></canvas>
-          <canvas id="r4c6" class="cell"></canvas>
-          <canvas id="r4c7" class="cell"></canvas>
-          <canvas id="r4c8" class="cell"></canvas>
-          <canvas id="r4c9" class="cell"></canvas>
-        </div>
-        <div class="row">
-          <canvas id="r5c0" class="cell"></canvas>
-          <canvas id="r5c1" class="cell"></canvas>
-          <canvas id="r5c2" class="cell"></canvas>
-          <canvas id="r5c3" class="cell"></canvas>
-          <canvas id="r5c4" class="cell"></canvas>
-          <canvas id="r5c5" class="cell"></canvas>
-          <canvas id="r5c6" class="cell"></canvas>
-          <canvas id="r5c7" class="cell"></canvas>
-          <canvas id="r5c8" class="cell"></canvas>
-          <canvas id="r5c9" class="cell"></canvas>
-        </div>
-        <div class="row">
-          <canvas id="r6c0" class="cell"></canvas>
-          <canvas id="r6c1" class="cell"></canvas>
-          <canvas id="r6c2" class="cell"></canvas>
-          <canvas id="r6c3" class="cell"></canvas>
-          <canvas id="r6c4" class="cell"></canvas>
-          <canvas id="r6c5" class="cell"></canvas>
-          <canvas id="r6c6" class="cell"></canvas>
-          <canvas id="r6c7" class="cell"></canvas>
-          <canvas id="r6c8" class="cell"></canvas>
-          <canvas id="r6c9" class="cell"></canvas>
-        </div>
-        <div class="row">
-          <canvas id="r7c0" class="cell"></canvas>
-          <canvas id="r7c1" class="cell"></canvas>
-          <canvas id="r7c2" class="cell"></canvas>
-          <canvas id="r7c3" class="cell"></canvas>
-          <canvas id="r7c4" class="cell"></canvas>
-          <canvas id="r7c5" class="cell"></canvas>
-          <canvas id="r7c6" class="cell"></canvas>
-          <canvas id="r7c7" class="cell"></canvas>
-          <canvas id="r7c8" class="cell"></canvas>
-          <canvas id="r7c9" class="cell"></canvas>
-        </div>
-        <div class="row">
-          <canvas id="r8c0" class="cell"></canvas>
-          <canvas id="r8c1" class="cell"></canvas>
-          <canvas id="r8c2" class="cell"></canvas>
-          <canvas id="r8c3" class="cell"></canvas>
-          <canvas id="r8c4" class="cell"></canvas>
-          <canvas id="r8c5" class="cell"></canvas>
-          <canvas id="r8c6" class="cell"></canvas>
-          <canvas id="r8c7" class="cell"></canvas>
-          <canvas id="r8c8" class="cell"></canvas>
-          <canvas id="r8c9" class="cell"></canvas>
-        </div>
-        <div class="row">
-          <canvas id="r9c0" class="cell"></canvas>
-          <canvas id="r9c1" class="cell"></canvas>
-          <canvas id="r9c2" class="cell"></canvas>
-          <canvas id="r9c3" class="cell"></canvas>
-          <canvas id="r9c4" class="cell"></canvas>
-          <canvas id="r9c5" class="cell"></canvas>
-          <canvas id="r9c6" class="cell"></canvas>
-          <canvas id="r9c7" class="cell"></canvas>
-          <canvas id="r9c8" class="cell"></canvas>
-          <canvas id="r9c9" class="cell"></canvas>
-        </div>
-      </div>
   </section>
 
 
 
 
-  <aside class="buildButtons">
-    <button id="toggleConstructionBtn">Construction</button>
-    <section id="btnBuild" class="btnBuild">
-      <button id="house">Houses</button>
-      <button id="road">Roads</button>
-      <button id="hospital">Hospital</button>
-      <button id="nightClub">Night Club</button>
-      <button>Services</button>
-      <button>Utilities</button>
-      <button>Moloch</button>
-      <button>Terrain</button>
-      <button id="bulldozer">Bulldozer</button> 
-    </section>
-  </aside>
+    <aside class="buildButtons">
+      <div class="btn" id="toggleConstructionBtn">Construction</div>
+      <section id="btnBuild" class="btnBuild">
+        <div class="btn" id="house">Houses</div>
+        <div class="btn" id="road">Roads</div>
+        <div class="btn" id="hospital">Hospital</div>
+        <div class="btn" id="nightClub">Night Club</div>
+        <div class="btn" id="park">Park</div>
+        <div class="btn" id="fireStation">fireStation</div>
+        <div class="btn" id="policeDept">PoliceDept</div>
+        <div class="btn">Services</div>
+        <div class="btn">Utilities</div>
+        <div class="btn">Moloch</div>
+        <div class="btn">Terrain</div>
+        <div class="btn" id="bulldozer">Bulldozer</div> 
+      </section>
+    </aside>
 
-  <aside id="buildOptions" class="buildOptions">
-  </aside>
+    <aside id="buildOptions" class="buildOptions">
+    </aside>
 
-  <aside class="dataButtons">
-    <button id="toggleToolsBtn">Tools</button>
-    <section id="btnTools" class="btnTools">
-      <button id="inspect">Inspect</button>
-      <button>Statistics</button>
-      <button>Maps</button>
-      <button>Budget</button>
-      <button id="newCity">New City</button>
-    </section>
-  </aside>
-
-
-
-
-
+    <aside class="dataButtons">
+      <div class="btn" id="toggleToolsBtn">Tools</div>
+      <section id="btnTools" class="btnTools">
+        <div class="btn" id="inspect">Inspect</div>
+        <div class="btn"button>Statistics</div>
+        <div class="btn">Maps</div>
+        <div class="btn">Budget</div>
+        <div class="btn" id="newCity">New City</div>
+      </section>
+    </aside>
 
 
-    <!-- img to help with introfilm -->
-    <!-- <img src="intro3whitesquare.png" id="intro1jpg"> -->
 
+  <!-- </div>End Wrapper -->
 
-  </div><!-- End Wrapper -->
-
+  
 </body>
 </html>

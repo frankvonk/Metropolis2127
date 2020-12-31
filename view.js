@@ -6,7 +6,6 @@
 var sTestLinkView = ' View,';
 
 
-
 //════════╡ GLOBAL VARIABLES ╞═══════════════════════════════════════════════
 // Buttons
 let eBtnMouseMode = "";
@@ -94,19 +93,19 @@ function fnBtnMouseCSS(sMouseMode) {
   // Depending on mouseMode (which button clicked) adjust CSS for corresponding
   // button to visualize current type of action and reset other buttons to normal css
   if(eBtnMouseMode != ""){
-    eBtnMouseMode.style.color = '#541388';
-    eBtnMouseMode.style.backgroundColor = 'aqua';
-    eBtnMouseMode.style.borderRight = '3px solid hotpink';
+    // eBtnMouseMode.style.color = '#541388';
+    // eBtnMouseMode.style.backgroundColor = 'aqua';
+    // eBtnMouseMode.style.borderRight = '3px solid hotpink';
   }
   // Store current button in eBtn for styling CSS
   eBtnMouseMode = document.getElementById(sMouseMode);
   //  document.getElementById(mouseMode).innerHTML += ' pressed';
-  eBtnMouseMode.style.color = 'aqua';
-  eBtnMouseMode.style.backgroundColor = '#541388'; // purple
-  eBtnMouseMode.style.borderRight = 'none';
-  eBtnMouseMode.style.outline = 0;
+  // eBtnMouseMode.style.color = 'aqua';
+  // eBtnMouseMode.style.backgroundColor = '#541388'; // purple
+  // eBtnMouseMode.style.borderRight = 'none';
+  // eBtnMouseMode.style.outline = 0;
   if(sMouseMode == 'bulldozer' || sMouseMode == "inspect"){
-    eBtnMouseMode.style.borderRight = '3px solid hotpink';
+    // eBtnMouseMode.style.borderRight = '3px solid hotpink';
   }
 } //══════╡ END ADJUST CSS AFTER CLICK ON BUTTON ╞═══════════════════════════
 
@@ -136,47 +135,73 @@ function fnMainAnimation(c){
         if (aGrid[i][j].typeStructure == 'structure' && aStructures[i][j].type == 'nightClub')
           nightClub(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, i, j); 
 
-        if (aGrid[i][j].hovercraft == 'hovercraftAvailable' || aGrid[i][j].hovercraft == 'hovercraftNotAvailable'){
-          if(i>0 && j>0){
-            if(aGrid[i][j].hovercraft == 'hovercraftAvailable'){
-              hovercraft(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cHovercraftAvailable);
-            }
-            else if(aGrid[i][j].hovercraft == 'hovercraftNotAvailable'){
-              hovercraft(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cHovercraftNotAvailable);
-            }
-          }
-        } // End hovercraft if's
+        if (aGrid[i][j].typeStructure == 'structure' && aStructures[i][j].type == 'park')
+        // later choose here from arr of multiple parks
+          parkAndysCoffeebar(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, i, j); 
+      
+
       } // End exclude outter loop
     } // End for loop on Y in grid
   } // End for loop on X in grid
 } //══════╡ END FUNCTION FOR ANIMATION ON CANVAS ╞═══════════════════════════
 
 
+//════════╡ FUNCTION FOR ANIMATION ON CANVAS ╞═══════════════════════════════
+function fnAnimateHover(c){
+ 
+  for(i=0; i<nNumPlots; i++){
+    for(j=0; j<nNumPlots; j++){
+      if(i>0 && j>0){ // The outter edge of board needs no animation
 
+        if(aGrid[i][j].hovercraft == 'hovercraftAvailable' || aGrid[i][j].hovercraft == 'hovercraftNotAvailable'){
+          // if(i>0 && j>0){
+            if(aGrid[i][j].hovercraft == 'hovercraftAvailable'){
+              hovercraft(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cHovercraftAvailable);
+            }
+            else if(aGrid[i][j].hovercraft == 'hovercraftNotAvailable'){
+              hovercraft(c, aGrid[i][j].canvasX, aGrid[i][j].canvasY, cHovercraftNotAvailable);
+            }
+          // }
+        } // End hovercraft if's     
 
-
-
+      } // End exclude outter loop
+    } // End for loop on Y in grid
+  } // End for loop on X in grid
+} //══════╡ END FUNCTION FOR ANIMATION ON CANVAS ╞═══════════════════════════
 
 
 //════════╡ ANIMATE HOVERING EFFECT ON MOUSEOVER ╞═══════════════════════════
-function hovercraft(c, x, y, cHoverColor){
-  c.globalAlpha = 0.3;
-  c.fillStyle = cHoverColor;
-  c.fillRect(x, y, plot, plot);
+function hovercraft(cHov, x, y, cHoverColor){
+  // c.clearRect(0, 0, 1000, 1000)
+  // console.log('me');
+  // console.log(x);
+
+ // console.log(cHoverColor);
+ // console.log(x,y);
+  cSize = plot * nNumPlots + plot;
+  cHov.clearRect(0, 0, cSize, cSize)
+
+  cHov.globalAlpha = 0.3;
+  cHov.fillStyle = cHoverColor;
+  //console.log(cHov);
+
+  cHov.fillRect(x, y, plot, plot);
   //horiz
-  c.fillRect(x, y, plot95Perc, plot5Perc);
-  c.fillRect(x, y, plot90Perc, plot10Perc);
+  cHov.fillRect(x, y, 95, 5);
+  cHov.fillRect(x, y, 90, 10);
   //left
-  c.fillRect(x, y+plot5Perc, plot5Perc, plot95Perc);
-  c.fillRect(x, y+plot10Perc, plot10Perc, plot90Perc);
+  cHov.fillRect(x, y+5, 5, 95);
+  cHov.fillRect(x, y+10, 10, 90);
   //right
-  c.fillRect(x+plot95Perc, y, plot5Perc, plot95Perc);
-  c.fillRect(x+plot90Perc, y, plot10Perc, plot90Perc);
+  cHov.fillRect(x+95, y, 5, 95);
+  cHov.fillRect(x+90, y, 10, 90);
   // bottom
-  c.fillRect(x+plot5Perc, y+plot95Perc, plot95Perc, plot5Perc);
-  c.fillRect(x+plot10Perc, y+plot90Perc, plot90Perc, plot10Perc);
-  c.globalAlpha = 1;
+  cHov.fillRect(x+5, y+95, 95, 5);
+  cHov.fillRect(x+10, y+90, 90, 10);
+  cHov.globalAlpha = 1;
+
 } //══════╡ END ANIMATE HOVERING EFFECT ON MOUSEOVER ╞═══════════════════════
+
 
 
 /*▓▓▓▓    ▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓    ▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓
@@ -206,7 +231,7 @@ function fnBuildHouse(y, x){
   }
   // Assign coordinates for animation
   aAnimation[y][x].pedestrianLevel.swimmer = {
-    animationY : aGrid[y][x].canvasY +plot15Perc, // +plot15Perc is the designed starting point of swimmer in the pool.
+    animationY : aGrid[y][x].canvasY + 15, // +plot15Perc is the designed starting point of swimmer in the pool.
     animationYConst : aGrid[y][x].canvasY,
     animationX : aGrid[y][x].canvasX,
     animationXConst : aGrid[y][x].canvasX,
@@ -257,38 +282,51 @@ function fnBuildRoad(y, x){
   aGrid[y][x].typeStructure = 'road'  
   // Determine tax level
   aEconomy[y][x] = nRoadTax2Lane;
-  // check for neighbours, true or false
-  let bCheckNeighbourTop = fnCheckRoadNeighbour(y-1,x);
-  let bCheckNeighbourRight = fnCheckRoadNeighbour(y,x+1);
-  let bCheckNeighbourBottom = fnCheckRoadNeighbour(y+1,x);
-  let bCheckNeighbourLeft = fnCheckRoadNeighbour(y,x-1);
+
   // Determine and store road style, neighbours
   aRoads[y][x] = {
     type : '2lane', 
-    neighbourTop: bCheckNeighbourTop,
-    neighbourRight: bCheckNeighbourRight,
-    neighbourBottom: bCheckNeighbourBottom,
-    neighbourLeft: bCheckNeighbourLeft
+    // check for adjecent roads for direction, true or false
+    neighbourTop: fnCheckRoadDirection(y-1,x),
+    neighbourRight: fnCheckRoadDirection(y,x+1),
+    neighbourBottom: fnCheckRoadDirection(y+1,x),
+    neighbourLeft: fnCheckRoadDirection(y,x-1),
+    // check for adjecent structures for on / off ramps, true or false
+    exitTop: fnCheckRoadNeedsExit(y-1,x),
+    exitRight: fnCheckRoadNeedsExit(y,x+1),
+    exitBottom: fnCheckRoadNeedsExit(y+1,x),
+    exitLeft: fnCheckRoadNeedsExit(y,x-1),
   }
-//  console.log('neighbourTop= '+ bCheckNeighbourTop);
-//  console.log('neighbourRight= '+bCheckNeighbourRight);
-//  console.log('neighbourBottom= '+bCheckNeighbourBottom);
-//  console.log('neighbourLeft= '+bCheckNeighbourLeft);
+  aGrid[y-1][x].carAccesBottom = true;
+  aGrid[y][x+1].carAccesLeft = true;
+  aGrid[y+1][x].carAccesTop = true;
+  aGrid[y][x-1].carAccesRight = true;
 } //══════╡ END BUILD ROAD TOP FUNCTION ╞════════════════════════════════════
 
+
 //════════╡ CHECK IF ROAD HAS ADJACENT ROADS ╞═══════════════════════════════
-function fnCheckRoadNeighbour(y, x){
-//  if (aRoads[y][x]){ // works but only vertical
+function fnCheckRoadDirection(y, x){
   if (x<0 || x>nNumPlots-1 || y<0 || y>nNumPlots-1) {
-    // i got an error after i removed this
+    // i got an error after i removed this due to outter edges of city outside canvas
     // console.log('whaaaat');
+    return false;
   }
   else if (aRoads[y][x].type == "2lane"){
-//    console.log(true);
     return true;
   }
- //   }
 } //══════╡ END CHECK IF ROAD HAS ADJACENT ROADS ╞═══════════════════════════
+
+
+//════════╡ CHECK IF ROAD HAS ADJACENT ROADS ╞═══════════════════════════════
+function fnCheckRoadNeedsExit(y, x){
+  if (x<0 || x>nNumPlots-1 || y<0 || y>nNumPlots-1) {
+    // i got an error after i removed this due to outter edges of city outside canvas
+    return false;
+  }
+  else if (aGrid[y][x].typeStructure == "structure"){
+    return true;
+  }
+} //══════╡ END CHECK IF ROAD HAS ADJACENT ROADS ╞═══════════════════════════  
 
 
 //════════╡ ASSIGN THE DIRECTION OF THE ROAD ╞═══════════════════════════════
@@ -357,6 +395,7 @@ let topy = plot_y+1;    let topx = plot_x;
 let rightx = plot_x-1;  let righty = plot_y;
 let bottomy = plot_y-1; let bottomx = plot_x;
 let leftx = plot_x+1;   let lefty = plot_y;
+  // For direction (corner / intersection / etc)
   if(aGrid[topy][topx].typeStructure == 'road'){        // console.log('top of road');
     fnBuildRoad(plot_y+1, plot_x);
     fnAssignRoadDirection(plot_y+1, plot_x);
@@ -373,6 +412,30 @@ let leftx = plot_x+1;   let lefty = plot_y;
     fnBuildRoad(plot_y, plot_x+1);
     fnAssignRoadDirection(plot_y, plot_x+1);
   }
+
+  
+  // For creating an on ramp / off ramp
+  if(aGrid[topy][topx].typeStructure == 'structure'){        // console.log('top of road');
+    aGrid[topy][topx].exitBottom = true;
+  } else {
+    aGrid[topy][topx].exitBottom = false;
+  }
+  if(aGrid[righty][rightx].typeStructure == 'structure'){    // console.log('right to road');
+    aGrid[righty][rightx].exitLeft = true;
+  } else {
+    aGrid[righty][rightx].exitLeft = false;
+  }
+  if(aGrid[bottomy][bottomx].typeStructure == 'structure'){  // console.log('under a road');
+    aGrid[bottomy][bottomx].exitTop = true;
+  } else {
+    aGrid[bottomy][bottomx].exitTop = false;
+  }
+  if(aGrid[lefty][leftx].typeStructure == 'structure'){      // console.log('left to road');  
+    aGrid[lefty][leftx].exitRight = true;
+  } else {
+    aGrid[lefty][leftx].exitRight = false;
+  }
+
 } //══════╡ END REDESIGN ADJACENT ROADS AFTER BUILDING ROAD ╞════════════════
 
 
@@ -398,26 +461,38 @@ function emptyPlot(c, x, y, cEmptyPlot){
 function fnAnimateOutsidePlayerReach(c){
   c.globalAlpha = 1;
   var grd = c.createLinearGradient(0, 200, 200, 0);
-  grd.addColorStop(0, "#791e94");
-  grd.addColorStop(1, "#540d6e");
+  // grd.addColorStop(0, "#791e94");
+  // grd.addColorStop(0, "#00cc00");
+  grd.addColorStop(0, "#1aff1a");
+  // grd.addColorStop(1, "#540d6e");
+  // grd.addColorStop(1, "#009900");
+  grd.addColorStop(1, "#00e600");
+  // grd.addColorStop(2, "#00cc00");
+  //  grd.addColorStop(3, "#00e600");
   // Fill with gradient
   c.fillStyle = grd;
-  c.fillRect(0, 0, nNumPlots*plot+plot,nNumPlots*plot+plot);
+  // c.fillStyle = 'transparent';
+  // c.fillRect(0, 0, nNumPlots*plot+plot,nNumPlots*plot+plot);
 
   // river in middle
-  //  c.fillStyle = 'aqua';
-  //  c.fillRect(250, 0, 50, nNumPlots*plot+plot);
-
+  // c.fillStyle = 'aqua';
+  // c.fillRect(250, 0, 50, nNumPlots*plot+plot);
   // border outside city
-  c.fillStyle = '#541388';
+  // c.fillStyle = '#00cc00';
   // top
-  c.fillRect(0, 0, nNumPlots*plot+plot20Perc, plot);
+  // c.fillRect(0, 0, nNumPlots*plot+20, plot);
   // left
-  c.fillRect(0, 0, plot, nNumPlots*plot+plot20Perc);
+  // c.fillRect(0, 0, plot, nNumPlots*plot+20);
   // bottom
-  c.fillRect(0, nNumPlots*plot, nNumPlots*plot+plot, plot);
+  // c.fillRect(0, nNumPlots*plot, nNumPlots*plot+plot, plot);
   // right
-  c.fillRect(nNumPlots*plot, 0, plot, nNumPlots*plot+plot);
+  // c.fillRect(nNumPlots*plot, 0, plot, nNumPlots*plot+plot);
+
+  // Complete background
+  c.fillStyle = grd;
+  // c.fillStyle = 'silver';
+  c.fillRect(0, 0, nNumPlots*plot+plot, nNumPlots*plot+plot);
+
 
 /*  for (i = 10; i < 200; i += 20) 
   c.fillStyle = "#f6019d"  
@@ -428,69 +503,43 @@ function fnAnimateOutsidePlayerReach(c){
 }
 
 
+2
 
-
-// Main Animation Loop 24 Frames Per Second
 
 // FRAMERATE USED FOR CALLING FNMAINANIMATION 24 TIMES PER SECOND
 let MilisecondsPerFrame = 41;
-//MilisecondsPerFrame = 410000;
+//MilisecondsPerFrame = 2000;
 let nFrameCounter = 0;
 
-
-setInterval(function(){
-
-  const eCanvas = document.getElementById('gameboardCanvas');
+// For loading screen on initial game start.
+setTimeout(() => {
+  const eCanvas = document.getElementById('canvasGroundLevel');
   var c = eCanvas.getContext("2d");
+  fnMainAnimation(c);  
+}, 40);
 
-  // Code for introduction film is commented due to lag
-  // if(seconds == 0){ fnLinesBackground(c); }
-  // if(seconds>1 /*&& seconds <1*/){ fnAnimateIntroImage(c); }
-//seconds += 1
-  //  else if(seconds>1){
-    // CREATE IF, SO ONLY ANIMATED WHEN FRAMECOUNTER SAYS
-    // THAT INTRO FILM IS OVER, THEN FADING IN TO GAMEBOARD.
-
-    fnMainAnimation(c);
-
-//    fnUpperAnimation(c)
-  //}
-//  swimmerX += 2;
-
-nFrameCounter += 1; 
-
-//console.log('nFrameCounter = ' + nFrameCounter)
-//console.log(nFrameCounter)
-//if(seconds){  l(seconds)}
-},
-MilisecondsPerFrame);
-
-//var seconds = 0;
-// function incrementSeconds() {
-// //  seconds += 1;
-// //  console.log("You have been here for " + seconds + " seconds.");
-// }
-// //var cancel = setInterval(incrementSeconds, 1000);
-
-
-function fnTussenFunctie() {
-  const eCanvas = document.getElementById('gameboardCanvas');
+// For loading screen on initial game start.
+setTimeout(() => {
+  const eCanvas = document.getElementById('canvasGroundLevel');
   var c = eCanvas.getContext("2d");
-  fnMainAnimation(c);
-  nFrameCounter += 1; 
-}
-//window.requestAnimationFrame(fnTussenFunctie())
+  fnMainAnimation(c);  
+}, 140);
 
+// Main Animation Loop 24 Frames Per Second
+/*
+setInterval(() => {
+  const eCanvas = document.getElementById('canvasGroundLevel');
+  var c = eCanvas.getContext("2d");
+  fnMainAnimation(c);  
+}, MilisecondsPerFrame);
+//}, 1000);
+*/
 
+// Animating hover 
+setInterval(() => {
+  const eCanvasHovercraft = document.getElementById('canvasHovercraft');
+  var c = eCanvasHovercraft.getContext("2d");
+  fnAnimateHover(c)  
+}, 60);
+//}, 1000);
 
-
-
-
-
-
-
-
-
-
-//════════╡ ANIMATION ZONE ╞═════════════════════════════════════════════════
-/*//var img = document.getElementById('house'); context.drawImage(img, building_this_plot[0], building_this_plot[1])*/

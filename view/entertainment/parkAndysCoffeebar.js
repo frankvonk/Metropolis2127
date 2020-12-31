@@ -1,7 +1,7 @@
 // Design for futuristic office building
 
 
-function house1x1_02(c, x, y){
+function parkAndysCoffeebar(c, x, y){
   c.globalAlpha = 1;
   c.fillStyle = "lightgrey";
   c.fillRect(x, y, plot, plot);
@@ -237,6 +237,7 @@ function thirdFountainRing(c, x, y, color) {
   c.fillStyle = "limegreen";
   c.fillRect(x+97,y+42,1,16);
   c.fillRect(x+52,y+46,46,8);
+  c.fillRect(x+52,y+42,1,16);
   c.fillStyle = "lightgrey";
   c.fillRect(x+52,y+47,46,6);
   // Bridge sides

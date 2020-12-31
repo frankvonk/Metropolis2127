@@ -9,7 +9,6 @@ function vehicleSmallTruck(c, x, y, primaryColor, direction) {
   // Frame
   c.fillStyle = primaryColor;
   c.fillRect(x, y, 7, 20)
-//  c.fillRect(x+p2, y-2, p4, p1)
 
   if(direction === "up") {
     // Windows
@@ -23,7 +22,6 @@ function vehicleSmallTruck(c, x, y, primaryColor, direction) {
     c.fillStyle = shader(sample, factor);
     c.fillRect(x-1, y+7, 9, 13)
 
-
     // Lights
     c.fillStyle = "yellow";
     c.fillRect(x, y, 1, 1)
@@ -32,11 +30,6 @@ function vehicleSmallTruck(c, x, y, primaryColor, direction) {
     c.fillRect(x-1, y+19, 1, 1)
     c.fillRect(x+7, y+19, 1, 1)  
   }
-
-
-
-
-
 
 
 

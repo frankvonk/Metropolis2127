@@ -1,19 +1,19 @@
 
-
-
 const gridOverlayAutoloader = () => {
-  console.log("gridOverlayAutoloader called");
-  
-
-  // Create overlaying divs for mouseDetection
-  const row = document.createElement('div');
-  row.className = 'row';
-  const tn = document.createTextNode('');
-  row.appendChild(tn)
-  row.innerHTML = 'kut';
-  const test = document.getElementById('test');
-  console.log('?',test);
-  
-  //  gridOverlaytest.appendChild(row);
+  const gridOverlay = document.getElementById('gridOverlay');
+  for(rowCounter=0; rowCounter <= nNumPlots; rowCounter++) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    for(cellCounter=0; cellCounter <= nNumPlots; cellCounter++) {
+      const cell = document.createElement('canvas');
+      cell.id = 'r' + padNum(rowCounter) + 'c' + padNum(cellCounter);
+      cell.classList = 'cell';
+      row.appendChild(cell); 
+    }
+    gridOverlay.appendChild(row)
+  }
 }  
 
+function padNum(num) {
+  return num < 10 ? '0' + num : num;
+}

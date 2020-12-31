@@ -23,12 +23,15 @@ body {
   font-family: 'Telex', sans-serif;
   font-size: 16px;
   color: aqua;
+  /* height: fit-content; */
+  /* display: grid; */
+  position: relative;
 }
 
 p {
   padding: 0;
   margin: 0;
-  font-size: 10px;
+  font-size: 16px;
 }
 
 /* .wrapper {} */
@@ -44,87 +47,105 @@ header {
   position: fixed;
   top: 0;
   z-index: 1;
-  height: 50px;
-  width: calc(100% - 2px);
+  height: 70px;
+  width: calc(100% - 10px);
   padding: 0;
-  border: 1px solid #f6019d;
-  border: 1px solid transparent;
-  margin: 0px;
+  /* border: 1px solid grey; */
+  /* border: 1px solid transparent; */
+  margin: 5px;
   display: grid;
   grid-template-areas:
   'timeZone zoomBtns gateStateData messages gameTitle'
   'timeZone zoomBtns gateStateData messages gameTitle';
-  background-color: #541388;
   background-color: transparent;
+  /* background-color: #541388; */
+  /* min-width: 99vw; */
+  font-size: 14px;
+  color: white;
 }
 
 /* TIME ZONE*/
+.sectiontimeZone {  
+}
 .timeZone {
-  width: 59px;
-  font-size: 9px;
-  background: hotpink;
+  height: 70px;
+  width: 155px;
+  /* font-size: 14px; */
+  padding: 2px 3px 0 3px;
+  border: 1px solid black;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+}
+.timeButtons {
 }
 .timeZone td {
-  width: 13px;
-  height: 12px;
+  width: 1px;
+}
+.unicodeMagnifier {
+  position: fixed;
+  top: 11px;
+  left: 85px;
+  min-width: 20px;
+  /* background: red; */
 }
 .timeBtn {
-  padding: 0 0;
-  border: 2px solid #f6019d;
-  font-size: 12px;
+  min-width: 21px;
+  border: 1px solid white;
+  font-weight: bold;
+  padding: 0;
+  font-size: 14px;
 }
 .pauzeBtn {
-  position: absolute;
-  top: 0px;
-  left: 5px;
-}
-.playBtn {
-  position: absolute;
-  top: 0.5px;
-  left: 24px;
-}
-.fasterBtn1 {
-  position: absolute;
-  top: 0.5px;
-  left: 40.5px;
-}
-.fasterBtn2 {
-  position: absolute;
-  left: 3.5px;
-}
-#pauzeBtn, #fasterBtn {
-  color: aqua;
-  background-color: hotpink;
+  position: fixed;
+  top: 12px;
+  left: 18px;
 }
 #playBtn {
-  color: #541388;
-  background-color: aqua;
+  background: rgba(0,0,0,0.5);
+}
+.playBtn {
+  position: fixed;
+  top: 13px;
+  left: 44px;
+}
+#fasterBtn {
+  /* max-width: 0px; */
+}
+.fasterBtn {
+  position: fixed;
+  top: 13px;
+  left: 64px;
 }
 .dateTime {
+  position: relative;
+  top: 2px;
+  display: flex;
 }
 /* END TIME ZONE*/
 
 
 /* ZOOM LEVELS */
-.zoomButtons {
-  width: 107px;
-  height: 20px;
-  background: #541388;
-  background-color: hotpink;
-  font-size: 10px;
-}
-#zoomMin, #zoomMed, #zoomMax {
-  width: 20px;
-  padding: 0 2px;
-  border: 2px solid #f6019d;
-}
 #zoomMin, #zoomMax {
-  color: aqua;
-  background-color: hotpink;
+  border: 1px solid white;
+  font-weight: bold;
+  font-size: 26px;
+  color: white;
+  min-width: 18px;
 }
-#zoomMed {
-  color: #541388;
-  background-color: aqua;
+#zoomMin {
+  background: rgba(0,0,0,0.5);
+}
+.zoomMin {
+  position: fixed;
+  left: 114px;
+  top: 5px;
+}
+#zoomMax {
+}
+.zoomMax {
+  position: fixed;
+  left: 136px;
+  top: 7px;
 }
 /* END ZOOM LEVELS */
 
@@ -134,23 +155,30 @@ header {
   /* border: 1px solid #f6019d; */
   background-color: #541388;
   background: hotpink;
-  width: 80px;
-  padding: 0.2em 0 0 0.3em;
+  background: rgba(0, 0, 0, 0.4);
+  min-width: 28vw;
+  /* max-width: 400px; */
+  padding: 0em 0 0 0.1em;
+  border: 1px solid black;
+  margin: 0 5px 0 5px;
 }
 .gateStateData p {
-  padding: 0.1em 0 0 0;
+  padding: 0.0em 0 0 0;
   margin: 0;
-  left: 0;
+  /* left: 0; */
 }
 /* END GAME STATE DATA */
 
-
 /* MESSAGES */
 .messagesSection {
-  width: 150px;
+  min-width: 28vw;
   /* border: 1px solid black; */
-  margin: 0 0 0 0em;
-  background-color: hotpink;
+  margin: 0 4px 0 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  /* opacity: 0.3; */
+  border: 1px solid black;
+  /* outline: 1px solid black; */
+
 }
 .messagesSection p {
   padding: 4px 0 0 2px;
@@ -159,7 +187,9 @@ header {
   /* width: 100px; */
   padding: 0;
   margin: 0 0 0 0;
-  font-size: 0.5em;
+  /* font-size: 0.5em; */
+  font-size: 1em;
+  color: red;
 }
 /* END MESSAGES */
 
@@ -170,28 +200,36 @@ header {
   font-size: 14px;
   text-align: center;
   font-style: italic;
+  min-width: 15vw;
+  background: green;
+  background: none;
 }
 /* END HEADER */
 
 
 /* BUTTONS */
-button {
-  background-color: hotpink;
-  border-color:  #f6019d;
+.btn {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid black;
   outline: none;
   font-weight: bold;
-  width: 100%;
+  min-width: fit-content;
   margin: 0;
-  font-size: 10px;
-  color: #541388;
-  color: aqua;
+  font-size: 16px;
+  color: white;
+  /* color: red; */
   /* z-index: 3; */
 }
+.btn:hover {
+  color: red;
+
+}
 .buildButtons {
+  display: grid;
   position: fixed;
-  top: 55px;
+  top: 81px;
   left: 5px;
-  width: 75px;
+  width: fit-content;
   margin: 0 0 0 0;
   /* z-index: 3; */
 }
@@ -209,15 +247,16 @@ button {
   left: 80px;
   margin-right: 3px;
   background-color: #541388;
-  border: 2px solid #f6019d;
+  border: 1px solid black;
   border-left: none;
   /* z-index: 3; */
 }
 .dataButtons {
   position: fixed;
-  top: 55px;
-  left: 150px;
-  width: 75px;
+  top: 108px;
+  left: 5px;
+  min-width: fit-content;
+  display: grid;
   margin: 0 0 0 0;
 }
 
@@ -239,61 +278,179 @@ button {
 
 
 
-/* CANVAS */
+/* PARENT OF ALL CANVASSES */
 #eCanvasHTMLSection {
   /* display: none; */
-  position: relative;
-  /* top: 350px;*/
-  top: 80px;
-  left: 80px;
-  left: -80px; /*
-  overflow: auto;
-  /* transform: rotateZ(90deg);
-  transform: rotateZ(180deg);
-  transform: rotateZ(270deg);
-  transform: rotateZ(360deg);
-  transform: rotateZ(0deg); */
+  /* position: absolute; */
+  
+  
+  /* overflow: auto; */
+  /* transform: rotateZ(45deg); */
+  /* transform: rotateZ(180deg); */
+  /* transform: rotateZ(270deg); */
+  /* transform: rotateZ(360deg); */
+  /* transform: rotateZ(0deg);  */
   /* z-index: 0; */
 }
 canvas {
   image-rendering: pixelated;
-  /* z-index: -1; */
   /* image-rendering: crisp-edges; */
 }
 /* END CANVAS */
 
-/* gridOverlay */
-.row {
+#canvasGroundLevel {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
 
+#canvasHovercraft {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  /* height: 1200px;
+  width: 1200px; */
+  height: 1000px;
+  width: 1000px;
+  /* background: transparent; */
+  /* background: red; */
+  /* outline: 1px solid green; */
+
+}
+
+
+/* gridOverlay */
+#gridOverlay {
+  display: inline-block;
+  /* transform: rotateZ(45deg) ; */
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  /* display: inherit; */
+  /* height: 1200px;
+  width: 1200px; */
+  height: 1000px;
+  width: 1000px;
+  /* outline: 0.1px solid red; */
+  /* background: transparent; */
+   /* background: green; */
+  /* opacity: 0.5; */
+  /* z-index: -2; */
+}
+.row {
   /* float: left; */
   /* background: green; */
 }
 .cell {
   float: left;
-
   background: rgba(200, 200, 200, 0.001) ;
   height: 100px;
   width: 100px;
   /* outline: 1px solid pink; */
 }
-.cell:hover {
-  /* background: pink; */
-} 
-
-#gridOverlay {
-  display: inline-block;
-  /* transform: rotateZ(45deg) ; */
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  /* height: 1150px; */
-  /* width: 1100px; */
-  outline: 0.1px solid red;
-  background: transparent;
-  /* z-index: -2; */
-}
+/* .cell:hover {  background: pink;   }  */
 
 /* End gridOverlay */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -314,15 +471,20 @@ canvas {
       ▓▓▓▓      ▓▓▓▓    ▓▓▓▓  ▓▓▓▓    ▓▓▓▓  ▓▓▓▓          ▓▓▓▓              ▓▓▓▓
       ▓▓▓▓      ▓▓▓▓    ▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓      ▓▓▓▓ */
 
+
 @media screen and (min-width: 824px) {
 
-/*
+  html {
+    background-color: cornflowerblue;
+  }
+  
+
   body {
     background-color: #241734;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: pink;
   }
-*/
+
 
 /*
   p {

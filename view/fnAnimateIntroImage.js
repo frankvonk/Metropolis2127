@@ -59,7 +59,7 @@ function fnAnimateIntroImage(c){
   // 215 x 159
   // 22 x 16
   
-  const eCanvas = document.getElementById('gameboardCanvas');
+  const eCanvas = document.getElementById('canvasGroundLevel');
   var c = eCanvas.getContext("2d");
 
   // BLACK BACKGROUND
