@@ -2,7 +2,8 @@
    a Simulation/City builder/Dystopian Adventure Game
    by Frank Vonk, visit www.frankvonk.be/metropolis2127.html */
 window.onload = function(){
-  l = (data) => console.log(data);
+  let l = (data) => console.log(data);
+  let log = (data) => console.log(data);
 
 
   // Concatenated string to test M.V.C. links and correct order in JavaScript Files
@@ -19,27 +20,33 @@ window.onload = function(){
   //════════╡ DOM ELEMENTS ╞═══════════════════════════════════════════════════
   const header = document.getElementById('header')
   const eCanvasHTMLSection = document.getElementById('eCanvasHTMLSection');
+  
+  // Initial call to draw previous gamestate or new city borders
+  // fnMainAnimation(c)
 
   // Grass/water/roads/lower buildings
   const eCanvas = document.getElementById('canvasGroundLevel');
   // alpha: false  sets background transparent
   const c = eCanvas.getContext("2d", { alpha: false });
-  // Initial call to draw previous gamestate or new city borders
-//  fnMainAnimation(c)
+  // Cars/Pedestrians
+  const eCanvasPedestrianLevel = document.getElementById('canvasPedestrianLevel');
+  const cp = eCanvas.getContext("2d");
+  // Hovering colorblock displaying whether or not current action is allowed on desired plot 
   const eCanvasHovercraft = document.getElementById('canvasHovercraft');
   const cHov = eCanvasHovercraft.getContext("2d");
-
   const eGridOverlay = document.getElementById('gridOverlay')
 
-
   // Buttons
-  const eBtnHouses = document.getElementById('house');
-  const eBtnRoad = document.getElementById('road');
-  const eBtnInspect = document.getElementById('inspect');
+  const eBtnBulldozer = document.getElementById('bulldozer');
+  const eBtnFire = document.getElementById('fire');
   const eBtnHospital = document.getElementById('hospital');
+  const eBtnHouses = document.getElementById('house');
+  const eBtnInspect = document.getElementById('inspect');
   const eBtnNightClub = document.getElementById('nightClub');
   const eBtnPark = document.getElementById('park');
-  const eBtnBulldozer = document.getElementById('bulldozer');
+  const eBtnRoad = document.getElementById('road');
+  const eBtnPolice = document.getElementById('police');
+
   const aMouseButtons = [eBtnHouses,eBtnRoad,eBtnInspect,eBtnBulldozer];
   const eBtnZoomMax = document.getElementById('zoomMax');
   const eBtnZoomMin = document.getElementById('zoomMin');
@@ -47,10 +54,12 @@ window.onload = function(){
   // Text Messages and Guide
   const eMessages = document.getElementById('messages')
   let sErrorMessage;
-  const eBuildOptions = document.getElementById('buildOptions');
+
+  const buildOptionsModal = document.getElementById('buildOptionsModal');
+  const buildOptionsContainer = document.getElementById('buildOptionsContainer');
   //════════╡ END DOM & GLOBAL VARIABLES ╞═════════════════════════════════════
 
-
+  eMessages.onclick = () => sMouseMode = '';
   //════════╡ Create mousedetection layer overlapping canvas ╞═════════════════
   gridOverlayAutoloader();
   //════════╡ End Create mousedetection layer overlapping canvas ╞═════════════
@@ -65,13 +74,13 @@ window.onload = function(){
     {
       if(toggleEBtnBuild){
         eBtnBuild.style.display = "inherit"
-        eToggleConstructionBtn.style.color = "#541388"
-        eToggleConstructionBtn.style.backgroundColor = "aqua"
+        eToggleConstructionBtn.style.color = "#333"
+        eToggleConstructionBtn.style.backgroundColor = "white"
         toggleEBtnBuild = false;
       } else {
         eBtnBuild.style.display = "none";
-        eToggleConstructionBtn.style.color = "aqua"
-        eToggleConstructionBtn.style.backgroundColor = "hotpink"
+        eToggleConstructionBtn.style.color = "white"
+        eToggleConstructionBtn.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
         toggleEBtnBuild = true;
       };
     }, false
@@ -85,22 +94,18 @@ window.onload = function(){
     {
       if(toggleToolsBtn){
         eBtnTools.style.display = "inherit"
-        eToggleToolsBtn.style.color = "#541388"
-        eToggleToolsBtn.style.backgroundColor = "aqua"
+        eToggleToolsBtn.style.color = "#333"
+        eToggleToolsBtn.style.backgroundColor = "white"
         toggleToolsBtn = false;
       } else {
         eBtnTools.style.display = "none";
-        eToggleToolsBtn.style.color = "aqua"
-        eToggleToolsBtn.style.backgroundColor = "hotpink"
+        eToggleToolsBtn.style.color = "white"
+        eToggleToolsBtn.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
         toggleToolsBtn = true;
       };
     }, false
   )
   //════════╡ end make toolsbuttons visible ╞═══════════════════════════
-
-
-
-
 
 
   fnMainAnimation(c);
@@ -160,36 +165,22 @@ window.onload = function(){
   } //══════╡ END fnCalculateTargetArea ╞══════════════════════════════════════
 */
 
-  // Only show hovercraft if a button is clicked to select action
-//  if(sMouseMode == ""){
-  // Store button pressed in 'sMouseMode' and call function for CSS
-  eBtnHouses.addEventListener('click', function(){
-    fnBuildOptionsHouses();
-  });
-   eBtnRoad.onclick = () => {
-     sMouseMode = 'road';
-     eBuildOptions.innerHTML = '';
-   };
-  eBtnInspect.onclick = () => {
-    sMouseMode = 'inspect';
-    eBuildOptions.innerHTML = '';
-  };
-  eBtnHospital.onclick = () => {
-    sMouseMode = 'hospital';
-    eBuildOptions.innerHTML = '';
-  };
-  eBtnNightClub.onclick = () => {
-    sMouseMode = 'nightClub';
-    eBuildOptions.innerHTML = '';
-  };
-  eBtnPark.onclick = () => {
-    sMouseMode = 'park';
-    eBuildOptions.innerHTML = '';
-  }
+  // CONSTRUCTION MENU
   eBtnBulldozer.onclick = () => {
-    sMouseMode = 'bulldozer';
-    eBuildOptions.innerHTML = '';
+    // buildOptionsModal.style.display = 'none'
+    // eBtnBuild.style.display = "none"
+    sMouseMode = 'bulldozer'
   };
+  eBtnFire.onclick = () => renderConstructionOptionsModal('fire');
+  eBtnHospital.onclick = () => renderConstructionOptionsModal('hospital');
+  eBtnHouses.onclick = () => renderConstructionOptionsModal('house');
+  eBtnInspect.onclick = () => sMouseMode = 'inspect';
+  eBtnNightClub.onclick = () => renderConstructionOptionsModal('nightClub');
+  eBtnPark.onclick = () => renderConstructionOptionsModal('park');
+  eBtnPolice.onclick = () => renderConstructionOptionsModal('police');
+  eBtnRoad.onclick = () => renderConstructionOptionsModal('road');
+
+  // TOOLS MENU
   eBtnNewCity.onclick = () => {
     // TODO confirmation screen
     localStorage.removeItem('userGameStateDump');
@@ -206,6 +197,10 @@ window.onload = function(){
 
   eCanvas.setAttribute('height', cSize);
   eCanvas.setAttribute('width', cSize);
+  eCanvasPedestrianLevel.setAttribute('height', cSize*1);
+  eCanvasPedestrianLevel.setAttribute('width', cSize*1);
+  eCanvasPedestrianLevel.style.minHeight = cSize + 'px';
+  eCanvasPedestrianLevel.style.minWidth = cSize + 'px';
   eCanvasHovercraft.setAttribute('height', cSize*1);
   eCanvasHovercraft.setAttribute('width', cSize*1);
   eCanvasHovercraft.style.minHeight = cSize + 'px';
@@ -229,12 +224,17 @@ window.onload = function(){
     eBtnZoomMax.style.backgroundColor = 'transparent';
     eCanvas.setAttribute('height', cSize);
     eCanvas.setAttribute('width', cSize);
+    eCanvasPedestrianLevel.setAttribute('height', cSize);
+    eCanvasPedestrianLevel.setAttribute('width', cSize);
+    eCanvasPedestrianLevel.style.minHeight = cSize + 'px';
+    eCanvasPedestrianLevel.style.minWidth = cSize + 'px';
     eCanvasHovercraft.style.minHeight = cSize + 'px';
     eCanvasHovercraft.style.minWidth = cSize + 'px';
     eGridOverlay.style.minHeight = cSize + 'px';
     eGridOverlay.style.minWidth = cSize + 'px';
     adjustSizeOfCellsForMouseDetection(100)
     fnMainAnimation(c)
+    console.log('zoom min')
   };
   eBtnZoomMax.onclick = () => {
     eBtnZoomMin.style.color = 'white';
@@ -244,6 +244,10 @@ window.onload = function(){
     eCanvas.setAttribute('height', cSize*2);
     eCanvas.setAttribute('width', cSize*2);
     c.scale(2, 2);
+    eCanvasPedestrianLevel.setAttribute('height', cSize*2);
+    eCanvasPedestrianLevel.setAttribute('width', cSize*2);
+    eCanvasPedestrianLevel.style.minHeight = cSize*4 + 'px';
+    eCanvasPedestrianLevel.style.minWidth = cSize*4 + 'px'; 
     eCanvasHovercraft.style.minHeight = cSize*2 + 'px';
     eCanvasHovercraft.style.minWidth = cSize*2 + 'px';
     eGridOverlay.style.minHeight = cSize*2 + 'px';
@@ -270,66 +274,12 @@ window.onload = function(){
       }
       aMouseButtons[i].addEventListener('click', function(){
         fnBtnMouseCSS(sMouseMode);
-        fnBtnMessage(eMessages, sMouseMode);  }  );
+//        fnBtnMessage(eMessages, sMouseMode);  
+}  );
     }
   }
   eventListenersOnConstructionButtons();
   //════════╡ END EVENT LISTENERS ╞════════════════════════════════════════════
-
-
-
-
-  // TEMPORARILY DISABLED
-  // The pop-up menu with different options of houses to build
-  //════════╡ fnBuildOptionsHouses ╞═══════════════════════════════════════════
-  function fnBuildOptionsHouses(){
-    // for applying CSS to button
-    sMouseMode = 'house';
-    // the buildOptions area must be cleared from previous data
-    eBuildOptions.innerHTML = '';
-    //---------SHOULD LATER BE 'VILLA'----------------
-    //    eVilla.addEventListener('click', function(){sMouseMode = 'villa'});
-    fnBuildOption('villa');
-    fnBuildOption('Small_Residential_Tower');
-    fnBuildOption('Medium_Residential_Tower');
-    fnBuildOption('Test')
-  } //══════╡ END fnBuildOptionsHouses ╞═══════════════════════════════════════
-
-
-  //════════╡ CREATE BUILD OPTIONS ╞═══════════════════════════════════════════
-  function fnBuildOption(type){
-    let eBuildOption = document.createElement('div');
-     let sBuildOption = type.replace(/_/g, ' ');
-
-    let tnBuildOption = document.createTextNode(sBuildOption +" + logo res/tax/power");
-    eBuildOption.appendChild(tnBuildOption);
-    eBuildOption.id = type;
-    eBuildOption.style.color = 'hotpink';
-    // eBuildOption.style.backgroundColor = '#541388'; // bright purple
-    // eBuildOption.style.backgroundColor = '#d40078'; // dark pink
-    eBuildOption.style.backgroundColor = '#241734';
-    eBuildOption.style.padding = '2px';
-    eBuildOption.style.border = '1px solid #d40078';
-    eBuildOption.style.margin = '5px';
-    eBuildOption.style.fontSize = '12px';
-    eBuildOption.style.height = '50px';
-    eBuildOption.style.width = '94px';
-
-    eBuildOptions.appendChild(eBuildOption);
-    // DOM and EVENT LISTENER
-    eBuildOption = document.getElementById(type);
-    eBuildOption.addEventListener('click', function(){sMouseMode = 'house'});
-    eBuildOption.addEventListener('mouseover', function(){eBuildOption.setAttribute('class', 'hover')});
-    eBuildOption.addEventListener('mouseout', function(){eBuildOption.setAttribute('class', 'nothover')});
-//    eBuildOption.addEventListener('click', function(){sMouseMode = type});
-//console.log('test houses options' + sMouseMode);
-  } //══════╡ END CREATE BUILD OPTIONS ╞═══════════════════════════════════════
-
-
-
-
-
-
 
 
 
@@ -343,7 +293,29 @@ window.onload = function(){
       if(fnCheckAvailability(aPlotClicked.typeStructure, sMouseMode, plot_y, plot_x, sErrorMessage)){
         // Switch depending on button pressed
         switch(sMouseMode){
-
+          
+          case 'bulldozer':
+            fnRemoveStructure(aPlotClicked.typeStructure, plot_y, plot_x);
+            // send message ' you destroyed 1... ' but code breaks before here
+            // due to fnCheckAvailability so code location is important
+            break;
+            
+          case 'fire':
+            aGrid[plot_y][plot_x].typeStructure = 'structure';
+            aStructures[plot_y][plot_x] = {
+              type : 'fire',
+            }
+            fnAssignOnAndOffRampsToRoads(plot_y, plot_x);
+            break;
+    
+          case 'hospital':
+            aGrid[plot_y][plot_x].typeStructure = 'structure'
+            aStructures[plot_y][plot_x] = {
+              type : 'hospital',
+            }  
+            fnAssignOnAndOffRampsToRoads(plot_y, plot_x);
+            break;
+  
           case 'house':
             aPlotClicked.typeStructure = 'structure';
             fnBuildHouse(plot_y, plot_x);
@@ -351,6 +323,35 @@ window.onload = function(){
             nHouses += 1;
             break;
 
+          case 'inspect':
+            // Gives whole array of plot, so that later added data can also be inspected.
+            fnInspect(eMessages, aPlotClicked, plot_y, plot_x);
+            break;
+
+          case 'nightClub':
+            aGrid[plot_y][plot_x].typeStructure = 'structure';
+            aStructures[plot_y][plot_x] = {
+              type : 'nightClub',
+            }  
+            fnAssignOnAndOffRampsToRoads(plot_y, plot_x);
+            break;
+
+          case 'park':
+            aGrid[plot_y][plot_x].typeStructure = 'structure';
+            aStructures[plot_y][plot_x] = {
+              type : 'park',
+            }  
+            fnAssignOnAndOffRampsToRoads(plot_y, plot_x);
+            break;
+
+          case 'police':
+            aGrid[plot_y][plot_x].typeStructure = 'structure';
+            aStructures[plot_y][plot_x] = {
+              type : 'police',
+            }  
+            fnAssignOnAndOffRampsToRoads(plot_y, plot_x);
+            break;
+  
           case 'road':
             // later several road types will be possible
             fnBuildRoad(plot_y, plot_x);
@@ -359,41 +360,7 @@ window.onload = function(){
             // Store road direction
             fnAssignRoadDirection(plot_y, plot_x);
             break;
-
-          case 'inspect':
-            // Gives whole array of plot, so that later added data can also be inspected.
-            fnInspect(eMessages, aPlotClicked, plot_y, plot_x);
-            break;
-
-          case 'hospital':
-            aGrid[plot_y][plot_x].typeStructure = 'structure'
-            aStructures[plot_y][plot_x] = {
-              type : 'hospital',
-            }
-            fnAssignOnAndOffRampsToRoads(plot_y, plot_x);
-            break;
-
-          case 'nightClub':
-            aGrid[plot_y][plot_x].typeStructure = 'structure'
-            aStructures[plot_y][plot_x] = {
-              type : 'nightClub',
-            }
-            fnAssignOnAndOffRampsToRoads(plot_y, plot_x);
-            break;
-
-          case 'park':
-            aGrid[plot_y][plot_x].typeStructure = 'structure'
-            aStructures[plot_y][plot_x] = {
-              type : 'park',
-            }
-            fnAssignOnAndOffRampsToRoads(plot_y, plot_x);
-            break;
-
-          case 'bulldozer':
-            fnRemoveStructure(aPlotClicked.typeStructure, plot_y, plot_x);
-            // send message ' you destroyed 1... ' but code breaks before here
-            // due to fnCheckAvailability so code location is important
-            break;
+  
         } // End of switch
 
         // Send New GameState Data to screen
@@ -411,25 +378,23 @@ window.onload = function(){
     } // End if statement to see is a button was pressed
 
     // update localStorage in mainengine
-    localStorage.setItem('userGameStateDump', JSON.stringify(''));
-    let userGameStateDump = {
-      aAnimation: aAnimation,
-      aEconomy: aEconomy,
-      aGrid: aGrid,
-      nHouses: nHouses,
-      aRoads: aRoads,
-      nRoads: nRoads,
-      aStructures: aStructures,
-    }
-    localStorage.setItem('userGameStateDump', JSON.stringify(userGameStateDump));
-    // console.log(JSON.parse(localStorage.getItem('userGameStateDump')));
+    storeGameState();
+    
     fnMainAnimation(c)
   } //══════╡ END ACT ON CLICK ON CANVAS ╞═════════════════════════════════════
+
+
+  //  Build first piece of road for testcar
+  fnBuildRoad(1, 1);
+  nRoads += 1;
+  fnRedesignRoads(1,1);
+  // Store road direction
+  fnAssignRoadDirection(1, 1);
+
 
   //════════╡ fnAssignOnAndOffRampsToRoads ╞═══════════════════════════════════
   function fnAssignOnAndOffRampsToRoads(y, x) {
     // Asign driveways to roads next to structure
-    console.log('doin it')
     aRoads[y-1][x].exitBottom = true;
     aRoads[y][x+1].exitLeft = true;
     aRoads[y+1][x].exitTop = true;
@@ -520,7 +485,6 @@ window.onload = function(){
   let plot_x_hover = 0;
   let plot_y_hover = 0;
   const fromGridOverlayToAGridHover = (mouseLoc) => {
-    console.log('fromGridOverlayToAGridHover')
     let targetRow = addNumsForfromGridOverlayToAGridClick(mouseLoc.target.id[1], mouseLoc.target.id[2]);
     let targetColumn = addNumsForfromGridOverlayToAGridClick(mouseLoc.target.id[4], mouseLoc.target.id[5]);
 
@@ -590,4 +554,226 @@ window.onload = function(){
 
 
 
-} //══════╡ END WINDOW.ONLOAD ╞══════════════════════════════════════════════
+/*
+  var canvas = document.getElementById("2-lane_Road");
+  var ctx = canvas.getContext("2d");
+    
+  road2Lane(ctx, 0, 0, i, j, true);
+*/
+
+/*
+  canvas = document.getElementById("buildOptionExampleNightClub");
+  ctx = canvas.getContext("2d");
+  nightClub(ctx, 0, 0);
+  nightClubPedestrianLevel(ctx, 0, 0);
+  */ 
+  
+  // DIFFERENT CONSTRUCTIONS WITH THEIR PROPERTIES
+  const constructionOptions = {
+    fire: [
+      {
+        tax: -30,
+        buildCosts: 700,
+        title: 'fire',
+        residents: 100,
+        sMouseMode: 'fire',
+      }
+    ],
+    hospital: [
+      {
+        tax: -30,
+        buildCosts: 700,
+        title: 'Hospital',
+        residents: 100,
+        sMouseMode: 'hospital',
+      }
+    ],
+    house: [
+      {
+        tax: 1,
+        buildCosts: 200,
+        title: 'Small house',
+        residents: 10,
+        sMouseMode: 'house',
+      },
+      {
+        tax: 2,
+        buildCosts: 300,
+        title: 'Medium house',
+        residents: 20,
+        sMouseMode: 'house',
+      },
+    ],
+    nightClub: [
+      {
+        tax: 3,
+        buildCosts: 500,
+        title: 'Night Club',
+        residents: 80,
+        sMouseMode: 'nightClub',
+      }
+    ],
+    park: [
+      {
+        tax: -19,
+        buildCosts: 100,
+        title: 'Park',
+        residents: 30,
+        sMouseMode: 'park',
+      }
+    ],
+    police: [
+      {
+        tax: -1,
+        buildCosts: 10,
+        title: 'Police Bureau',
+        residents: 0,
+        sMouseMode: 'police',
+      }
+    ],
+    road: [
+      {
+        tax: -1,
+        buildCosts: 10,
+        title: 'Two-Lane Road',
+        residents: 0,
+        sMouseMode: 'road',
+      }
+    ],
+  };
+  //══════╡ RENDER MODAL WITH BUILD OPTIONS ╞══════════════════════════════════
+  function renderConstructionOptionsModal(typeOfConstruction) {
+    // OLD WAY
+    // sMouseMode = typeOfConstruction;
+    sMouseMode = '';
+
+    buildOptionsModal.style.visibility = 'inherit';    
+    console.log('type = ', typeOfConstruction)
+    // Delete options from previous time
+    buildOptionsContainer.innerHTML = null;
+    constructionOptions[typeOfConstruction].forEach(item => {
+      // console.log('dees ==== ', item)
+      createConstructionOptions(item)
+    })
+  }
+
+  function createConstructionOptions(typeOfConstruction) {
+    console.log('den dees doet het = ', typeOfConstruction)
+    const table = document.createElement('table');
+    table.classList = 'buildOptionTile';
+    table.onclick = () => selectThisTypeOfConstruction(typeOfConstruction)
+
+    const caption = document.createElement('caption');
+    let tn = document.createTextNode(typeOfConstruction.title);
+    caption.appendChild(tn);
+    table.appendChild(caption);
+
+    const tBody = document.createElement('tbody');
+
+    let tr = document.createElement('tr');
+    let td = document.createElement('td');
+    td.classList = "exampleImage";
+    const canvas = document.createElement('canvas');
+    canvas.height = 100;
+    canvas.width = 100;
+    canvas.classList = "CanvasExample";
+    canvas.id = 'buildOptionExampleNightClub'
+    ctx = canvas.getContext("2d");
+
+    switch(typeOfConstruction.sMouseMode) {
+      case 'hospital':
+        hospital(ctx, 0, 0, 0, 0, true);
+        break;
+      case 'fire':
+        mediumFireStation(ctx, 0, 0, 0, 0, true);
+        break;
+      case 'house':
+        house1x1_01(ctx, 0, 0, 0, 0, true);
+        break;
+      case 'nightClub':
+        nightClub(ctx, 0, 0);
+        nightClubPedestrianLevel(ctx, 0, 0);
+        break;
+      case 'park':
+        parkAndysCoffeebar(ctx, 0, 0, i, j, true);
+        parkAndysCoffeebarPedestrianLevel(ctx, 0, 0, i, j, true);
+        break;   
+      case 'police':
+        mediumPoliceOffice(ctx, 0, 0, i, j, true);
+        break;   
+      case 'road':
+        road2Lane(ctx, 0, 0, i, j, true);
+        break;   
+    }
+
+    td.appendChild(canvas)
+    tr.appendChild(td)
+    tBody.appendChild(tr)
+
+    tr = document.createElement('tr');
+    td = document.createElement('td');
+    td.classList = "buildOptionText"
+    const tableText = document.createElement('table');
+    let trText = document.createElement('tr');
+    let tdText = document.createElement('td');
+    let tnText = document.createTextNode('Build costs')
+    tdText.appendChild(tnText);
+    trText.appendChild(tdText);
+
+    tdText = document.createElement('td');
+    tnText = document.createTextNode('€'+typeOfConstruction.buildCosts)
+    tdText.appendChild(tnText);
+    trText.appendChild(tdText);
+
+    tableText.appendChild(trText);
+
+    trText = document.createElement('tr');
+    tdText = document.createElement('td');
+    tnText = document.createTextNode('Income')
+    tdText.appendChild(tnText);
+    trText.appendChild(tdText);
+
+    tdText = document.createElement('td');
+    tnText = document.createTextNode('€'+typeOfConstruction.tax)
+    tdText.appendChild(tnText);
+    trText.appendChild(tdText);
+
+    tableText.appendChild(trText);
+
+    trText = document.createElement('tr');
+    tdText = document.createElement('td');
+    tnText = document.createTextNode('Residents')
+    tdText.appendChild(tnText);
+    trText.appendChild(tdText);
+
+    tdText = document.createElement('td');
+    tnText = document.createTextNode('>'+typeOfConstruction.residents)
+    tdText.appendChild(tnText);
+    trText.appendChild(tdText);
+
+    tableText.appendChild(trText);
+
+    td.appendChild(tableText)
+    tr.appendChild(td)
+    tBody.appendChild(tr)
+
+    table.appendChild(tBody)
+    buildOptionsContainer.appendChild(table);
+  }
+  //══════╡ END RENDER MODAL WITH BUILD OPTIONS ╞══════════════════════════════
+  
+  //══════╡ SELECT A CONSTRUCTION TYPE ╞═══════════════════════════════════════
+  function selectThisTypeOfConstruction(typeOfConstruction) {
+    buildOptionsModal.style.visibility = 'hidden';    
+    console.log('mouse =', typeOfConstruction.sMouseMode)
+
+    console.log('selected type = ', typeOfConstruction)
+    sMouseMode = typeOfConstruction.sMouseMode;
+  }
+  //══════╡ END SELECT A CONSTRUCTION TYPE ╞═══════════════════════════════════
+
+  
+
+
+
+} //══════╡ END WINDOW.ONLOAD ╞════════════════════════════════════════════════

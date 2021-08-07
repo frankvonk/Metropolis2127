@@ -9,7 +9,7 @@ asphaltColor = 'aqua';
 colorLaneMarkings = 'cornflowerblue';
 */
 
-function road2Lane(c, x, y, i, j){
+function road2Lane(c, x, y, i, j, exampleInBuildOptions = false){
   c.globalAlpha = 1;
   c.fillStyle = grassColor;
   c.fillRect(x, y, plot, plot);
@@ -626,8 +626,8 @@ function road2Lane(c, x, y, i, j){
   else if(sdirection == 'straight_12_6'){
     road2LaneStraight(c, x, y, 'vert');
   }
-  else if(sdirection == 'straight_3_9'){
-    road2LaneStraight(c, x, y, 'hor');
+  else if(sdirection == 'straight_3_9' || exampleInBuildOptions){
+    road2LaneStraight(c, x, y, 'hor', exampleInBuildOptions);
   }
   else if(sdirection == 'dead_12'){
     road2LaneDead(c, x, y, 1, 1, 'vert', '12');
@@ -1319,8 +1319,8 @@ function road2LaneDead(c, x, y, hor, vert, dir, time) {
 
 
 
-function road2LaneStraight(c, x, y, dir) {
-  if(dir == 'vert') {
+function road2LaneStraight(c, x, y, dir, exampleInBuildOptions) {
+  if(dir == 'vert' || exampleInBuildOptions) {
     // Curb
     c.fillStyle = curbColor;
     c.fillRect(x+14, y, 1, plot);
@@ -1369,20 +1369,21 @@ function road2LaneStraight(c, x, y, dir) {
     drivingSpeed = second *2;
     drivingSpeed = nFrameCounter;
     drivingSpeed = nFrameCounter*1.8;
-    vehicleFamilyCar1(c, x+17, y+5+drivingSpeed, "cornflowerblue", "down");
+    // vehicleFamilyCar1(c, x+17, y+5+drivingSpeed, "cornflowerblue", "down");
 
     lane1= 65;
     lane2= 76;
     backwards = 0 - Math.abs(nFrameCounter)*2;
+/*    
     vehicleFamilyCar1(c, x+lane1+1, y+backwards, "green", "up");
     vehicleLargeTruck(c, x+lane1, y+55+backwards, 'pink', 'up');
     vehicleFamilyCar1(c, x+lane2, y+60+backwards,    "hotpink", "up");
-    vehicleAmbulance2(c, x+lane2, y+85+backwards, 'up');
+    vehicleAmbulance(c, x+lane2, y+85+backwards, 'up');
 //    let truckColor = `rgb(${255},0,0)`
     vehicleSmallTruck(c, x+lane2, y+4+backwards, 'purple', 'up');
     vehicleSmallTruck(c, x+lane2, y+34+backwards, 'lightblue', 'up');
 //    vehicleLargeTruck(c, x+34, y+12, curbColor, 'up');
-
+*/
     // Trees & flowers
     treeMedium(c, x+4, y+1)
     treeSmall(c, x+6, y+21)

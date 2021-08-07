@@ -141,16 +141,259 @@ charN_Apos = (c, x, y, color) => {
   c.fillStyle = color;
   c.fillRect(x,y,1,2);
 }
+charN_Arrow = (c, x, y) => {
+  c.fillStyle = 'white';
+  c.fillRect(x+2, y, 1, 1)
+  c.fillRect(x+1, y+1, 3, 1)
+  c.fillRect(x, y+2, 5, 1)
+  c.fillRect(x+2, y+3, 1, 4)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// EASTERN DIRECTION
+charE_A = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,5,1);
+  c.fillRect(x,y+1,1,1);
+  c.fillRect(x+2,y+1,1,1);
+  c.fillRect(x,y+2,5,1);
+}
+charE_C = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,2);
+  c.fillRect(x+4,y,1,2);
+  c.fillRect(x,y+2,5,1);
+}
+charE_E = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,3);
+  c.fillRect(x+2,y,1,2);
+  c.fillRect(x+4,y,1,3);
+  c.fillRect(x,y,5,1);
+}
+charE_H = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,5,1);
+  c.fillRect(x+2,y+1,1,1);
+  c.fillRect(x,y+2,5,1);
+}
+charE_I = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,1);
+  c.fillRect(x+2,y,3,1);
+}
+charE_L = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x+4,y,1,2);
+  c.fillRect(x,y+2,5,1);
+}
+charE_O = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,5,1);
+  c.fillRect(x,y+1,1,1);
+  c.fillRect(x+4,y+1,1,1);
+  c.fillRect(x,y+2,5,1);
+}
+charE_P = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,3,1);
+  c.fillRect(x,y+1,1,1);
+  c.fillRect(x+2,y+1,1,1);
+  c.fillRect(x,y+2,5,1);
+}
+charE_R = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,5,1);
+  c.fillRect(x+2,y,1,2);
+  c.fillRect(x+4,y,1,2);
+  c.fillRect(x,y+2,2,1);
+  c.fillRect(x+3,y+2,2,1);
+}
+charE_S = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,3);
+  c.fillRect(x+1,y+2,1,1);
+  c.fillRect(x+2,y,1,3);
+  c.fillRect(x+3,y,1,1);
+  c.fillRect(x+4,y,1,3);
+}
+charE_T = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,3);
+  c.fillRect(x,y+1,5,1);
+}
+
+charE_Arrow = (c, x, y) => {
+  c.fillStyle = 'white';
+  c.fillRect(x, y+2, 4, 1)
+  c.fillRect(x+4, y, 1, 5)
+  c.fillRect(x+5, y+1, 1, 3)
+  c.fillRect(x+6, y+2, 1, 1)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// SOUTHERN DIRECTION
+charS_B = (c, x, y, color) => {
+  c.fillStyle = color;
+}
+charS_C = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,2);
+  c.fillRect(x+4,y,1,2);
+  c.fillRect(x,y+2,5,1);
+}
+charS_E = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,2,1);
+  c.fillRect(x+1,y+2,1,1);
+  c.fillRect(x,y+4,2,1);
+  c.fillRect(x+2,y,1,5);
+}
+charS_I = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,1);
+  c.fillRect(x+2,y,3,1);
+}
+charS_L = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x+4,y,1,2);
+  c.fillRect(x,y+2,5,1);
+}
+charS_O = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,5,1);
+  c.fillRect(x,y+1,1,1);
+  c.fillRect(x+4,y+1,1,1);
+  c.fillRect(x,y+2,5,1);
+}
+charS_P = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,3,1);
+  c.fillRect(x,y+1,1,1);
+  c.fillRect(x+2,y+1,1,1);
+  c.fillRect(x,y+2,5,1);
+}
+charS_R = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,2);
+  c.fillRect(x,y+3,1,2);
+  c.fillRect(x+1,y+2,1,1);
+  c.fillRect(x+1,y+4,1,1);
+  c.fillRect(x+2,y,1,5);
+}
+charS_S = (c, x, y, color) => {
+  c.fillStyle = color;
+}
+charS_T = (c, x, y, color) => {
+  c.fillStyle = color;
+}
+
+charS_Arrow = (c, x, y) => {
+  c.fillStyle = 'white';
+  c.fillRect(x+2, y, 1, 4)
+  c.fillRect(x, y+4, 5, 1)
+  c.fillRect(x+1, y+5, 3, 1)
+  c.fillRect(x+2, y+6, 1, 1)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 // WESTERN DIRECTION
-charW_E = (c, x, y, color) => {
+charW_E2222 = (c, x, y, color) => {
   c.fillStyle = color;
   c.fillRect(x,y,1,2);
   c.fillRect(x,y+2,5,1);
   c.fillRect(x+2,y+1,1,1);
   c.fillRect(x+4,y,1,2);
+}
+charW_B = (c, x, y, color) => {
+  c.fillStyle = color;
+}
+charW_C = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,2);
+  c.fillRect(x+4,y,1,2);
+  c.fillRect(x,y+2,5,1);
+}
+charW_E = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,2);
+  c.fillRect(x+2,y+1,1,1);
+  c.fillRect(x+4,y,1,2);
+  c.fillRect(x,y+2,5,1);
+}
+charW_I = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,1,1);
+  c.fillRect(x+2,y,3,1);
+}
+charW_L = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x+4,y,1,2);
+  c.fillRect(x,y+2,5,1);
+}
+charW_O = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,5,1);
+  c.fillRect(x,y+1,1,1);
+  c.fillRect(x+4,y+1,1,1);
+  c.fillRect(x,y+2,5,1);
+}
+charW_P = (c, x, y, color) => {
+  c.fillStyle = color;
+  c.fillRect(x,y,3,1);
+  c.fillRect(x,y+1,1,1);
+  c.fillRect(x+2,y+1,1,1);
+  c.fillRect(x,y+2,5,1);
 }
 charW_R = (c, x, y, color) => {
   c.fillStyle = color;
@@ -161,52 +404,41 @@ charW_R = (c, x, y, color) => {
   c.fillRect(x+3,y,2,1);
 }
 
+charW_Arrow = (c, x, y) => {
+  c.fillStyle = 'white';
+  c.fillRect(x, y+2, 1, 1)
+  c.fillRect(x+1, y+1, 1, 3)
+  c.fillRect(x+2, y, 1, 5)
+  c.fillRect(x+3, y+2, 4, 1)
+}
 
 
 
-// SOUTHERN DIRECTION
-charS_B = (c, x, y, color) => {
-  c.fillStyle = color;
-  c.fillRect(x,y,1,5);
-  c.fillRect(x,y,-1,1);
-  c.fillRect(x-1,y+1,-1,1);
-  c.fillRect(x,y+2,-1,1);
-  c.fillRect(x-1,y+3,-1,1);
-  c.fillRect(x,y+4,-1,1);
-}
-charS_I = (c, x, y, color) => {
-  c.fillStyle = color;
-  c.fillRect(x,y,1,3);
-  c.fillRect(x,y+4,1,1);
-}
-charS_O = (c, x, y, color) => {
-  c.fillStyle = color;
-  c.fillRect(x,y,1,5);
-  c.fillRect(x+1,y,1,1);
-  c.fillRect(x+1,y+4,1,1);
-  c.fillRect(x+2,y,1,5);
-}
-charS_R = (c, x, y, color) => {
-  c.fillStyle = color;
-  c.fillRect(x,y,1,2);
-  c.fillRect(x+1,y+2,1,1);
-  c.fillRect(x,y+3,1,1);
-  c.fillRect(x+1,y+4,1,1);
-  c.fillRect(x+2,y,1,5);
-}
-charS_S = (c, x, y, color) => {
-  c.fillStyle = color;
-  c.fillRect(x,y,3,1);
-  c.fillRect(x,y+1,1,1);
-  c.fillRect(x,y+2,3,1);
-  c.fillRect(x+2,y+3,1,1);
-  c.fillRect(x,y+4,3,1);
-}
-charS_T = (c, x, y, color) => {
-  c.fillStyle = color;
-  c.fillRect(x,y+4,3,1);
-  c.fillRect(x+1,y,1,5);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

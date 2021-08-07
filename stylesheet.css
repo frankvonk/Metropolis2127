@@ -90,6 +90,7 @@ header {
 }
 .timeBtn {
   min-width: 21px;
+  height: 20px;
   border: 1px solid white;
   font-weight: bold;
   padding: 0;
@@ -138,14 +139,14 @@ header {
 .zoomMin {
   position: fixed;
   left: 114px;
-  top: 5px;
+  top: 4px;
 }
 #zoomMax {
 }
 .zoomMax {
   position: fixed;
   left: 136px;
-  top: 7px;
+  top: 6px;
 }
 /* END ZOOM LEVELS */
 
@@ -189,7 +190,8 @@ header {
   margin: 0 0 0 0;
   /* font-size: 0.5em; */
   font-size: 1em;
-  color: red;
+  color: white;
+  /* text-shadow: 2px 2px 8px white; */
 }
 /* END MESSAGES */
 
@@ -214,6 +216,7 @@ header {
   outline: none;
   font-weight: bold;
   min-width: fit-content;
+  padding: 0 2px;
   margin: 0;
   font-size: 16px;
   color: white;
@@ -221,8 +224,8 @@ header {
   /* z-index: 3; */
 }
 .btn:hover {
-  color: red;
-
+  /* color: grey;
+  background: silver; */
 }
 .buildButtons {
   display: grid;
@@ -230,6 +233,7 @@ header {
   top: 81px;
   left: 5px;
   width: fit-content;
+  min-width: 120px;
   margin: 0 0 0 0;
   /* z-index: 3; */
 }
@@ -238,30 +242,14 @@ header {
   display: none;
   /* z-index: 3; */
 }
-/* Menu to specify building structure */
-.buildOptions {
-  width: 110px;
-  display: none;
-  position: fixed;
-  top: 85px;
-  left: 80px;
-  margin-right: 3px;
-  background-color: #541388;
-  border: 1px solid black;
-  border-left: none;
-  /* z-index: 3; */
-}
 .dataButtons {
   position: fixed;
-  top: 108px;
-  left: 5px;
+  top: 81px;
+  left: 133px;
   min-width: fit-content;
   display: grid;
   margin: 0 0 0 0;
 }
-
-
-
 
 
 .hover {
@@ -271,6 +259,7 @@ header {
   color: red;
 }
 /* END BUTTONS */
+
 
 
 
@@ -304,18 +293,23 @@ canvas {
   left: 0px;
 }
 
+#canvasPedestrianLevel {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 1000px;
+  width: 1000px;
+  /* z-index: 3; */
+}
+
 #canvasHovercraft {
   position: absolute;
   top: 0px;
   left: 0px;
-  /* height: 1200px;
-  width: 1200px; */
   height: 1000px;
   width: 1000px;
   /* background: transparent; */
-  /* background: red; */
   /* outline: 1px solid green; */
-
 }
 
 
@@ -355,8 +349,71 @@ canvas {
 
 
 
+/* Start BuildOptionsModal */
+.buildOptionsModal {
+  position: fixed;
+  top: 81px;
+  left: 133px;
+  visibility: hidden;
+  border: 1px solid black;
+}
+.buildOptionsTitle {
+  /* padding: 1px 0 1px 1px; */
+  /* margin: -0px; */
+  /* position: relative; */
+  /* top: -0.2px; */
+  /* left: -0.4px; */
+  background: grey;
+  color: white;
+  border-bottom: 1px solid black;
+}
+.buildOptionsContainer {
+  background: green;
+  min-height: 210px;
+  padding: 0em 0.5em 0 0.5em;
+  margin: 0 0 0 0;
+  /* min-height: 20vh; */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* min-width: 302px; */
+}
+.buildOptionTile {
+  float: left;
+  min-width: 130px;
+  max-width: 130px;
+  margin: 0.5em;
+  background: blue;
+  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid black;
+}
+.buildOptionTile caption {
+  color: white;
+  /* text-shadow: #0d0221 1px 1px; */
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.exampleImage {
+  padding: 0.2em 0 0 0;
+  text-align: center;
+  /* background: green; */
+  /* min-width: 110px;
+  max-width: 110px; */
+}
+.CanvasExample {
+  /* background: pink; */
+}
+.buildOptionText {
+  color: black;
+  color: white;
+  font-size: 0.8em;
+}
 
 
+.buildOptionNotPossible {
+  color: red;
+  border: 10px solid pink;
+}
+
+/* End BuildOptionsModal */
 
 
 

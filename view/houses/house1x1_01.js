@@ -1,7 +1,7 @@
 // Design for luxury villa
 
 // i + j are for swimmer in pool
-function house1x1_01(c, x, y, i, j){
+function house1x1_01(c, x, y, i, j, exampleInBuildOptions = false){
   c.globalAlpha = 1;
 
   c.fillStyle = "lightgrey";
@@ -85,7 +85,7 @@ function house1x1_01(c, x, y, i, j){
   c.fillRect(x+15,y+76,2,5);
 
   // Connection to road / garage - driveway location
-  if (aGrid[i][j].carAccesRight) {
+  if (exampleInBuildOptions || aGrid[i][j].carAccesRight) {
     c.fillStyle = 'silver';
     c.fillRect(x+72, y+64, 26, 17);
     c.fillStyle = 'lightgrey';

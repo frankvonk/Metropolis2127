@@ -1,4 +1,4 @@
-
+// Motel
 
 
 function house1x1_04(c, x, y){

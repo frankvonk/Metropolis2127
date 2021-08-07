@@ -11,18 +11,49 @@
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- Divers helper files --> 
+  <!-- Divers helper files -->
   <script type="text/javascript" src="helperFiles/gridOverlayAutoloader.js"></script>
   <!-- <script type="text/javascript" src="view/comp/Helpers.js"></script> -->
-  <meta 
+  <meta
     content="
     initial-scale=1,
-              width=device-width, 
-             user-scalable=no"
-   name="viewport"            
+              width=device-width,
+             user-scalable=yes"
+   name="viewport"
   >
+
+
+
   <!-- <meta name="viewport" content="width=device-width, user-scalable=no"> -->
-                    
+
+  <!-- Store gamestate -->
+  <script>
+    //════════╡ Store game state in localMemory ╞═════════════════════════
+    function storeGameState() {
+      console.log('storeGameState()')
+      // update localStorage in mainengine
+      localStorage.setItem('userGameStateDump', JSON.stringify(''));
+      let userGameStateDump = {
+        aAnimation: aAnimation,
+        aEconomy: aEconomy,
+        aGrid: aGrid,
+        nHouses: nHouses,
+        aRoads: aRoads,
+        nRoads: nRoads,
+        aStructures: aStructures,
+      }
+      localStorage.setItem('userGameStateDump', JSON.stringify(userGameStateDump));
+    }
+
+    //════════╡ Clear Animation canvas ╞══════════════════════════════════
+    function clearCanvas(canvasId) {
+      let eCanvas = document.getElementById(canvasId);
+      var c = eCanvas.getContext("2d");
+      c.clearRect(0, 0, 1000, 1000);
+    }
+
+
+  </script>
 
   <!-- TIME -->
   <script type="text/javascript" src="time.js"></script>
@@ -43,12 +74,12 @@
   <script type="text/javascript" src="view/comp/patterns.js"></script>
 
   <!-- Vehicles -->
-  <script type="text/javascript" src="view/vehicles/vehicleAmbulance2.js"></script>
+  <script type="text/javascript" src="view/vehicles/vehicleAmbulance.js"></script>
   <script type="text/javascript" src="view/vehicles/vehicleFamilyCar1.js"></script>
   <script type="text/javascript" src="view/vehicles/vehicleFamilyCar2.js"></script>
   <script type="text/javascript" src="view/vehicles/vehicleLargeTruck.js"></script>
   <script type="text/javascript" src="view/vehicles/vehicleSmallTruck.js"></script>
-  
+
   <!-- Structures -->
   <script type="text/javascript" src="view/houses/house1x1_01.js" ></script>
   <script type="text/javascript" src="view/houses/house1x1_02.js" ></script>
@@ -57,11 +88,18 @@
 
   <!-- Entertainment -->
   <script type="text/javascript" src="view/entertainment/nightClub.js" ></script>
+  <script type="text/javascript" src="view/entertainment/nightClubPedestrianLevel.js" ></script>
   <script type="text/javascript" src="view/entertainment/parkAndysCoffeebar.js" ></script>
+  <script type="text/javascript" src="view/entertainment/parkAndysCoffeebarPedestrianLevel.js" ></script>
 
   <!-- Services -->
   <!-- Hospital -->
-  <script type="text/javascript" src="view/services/medical/servicesMedicalHospital.js"></script>
+  <script type="text/javascript" src="view/services/medical/mediumHospital.js"></script>
+  <!-- Police -->
+  <script type="text/javascript" src="view/services/police/mediumPoliceOffice.js"></script>
+
+  <!-- Fire -->
+  <script type="text/javascript" src="view/services/fire/mediumFireStation.js"></script>
 
   <!-- Roads -->
   <script type="text/javascript" src="view/roads_paths_tracks/road2Lane.js"></script>
@@ -70,6 +108,8 @@
   <!-- Introduction animation is commented out due to performance reasons -->
   <script type="text/javascript" src="view/fnAnimateIntroImage.js"></script>
 
+  <!-- Traffic functions -->
+  <script type="text/javascript" src="traffic/routes.js" ></script>
   <!-- View is  -->
   <script type="text/javascript" src="view.js" ></script>
 
@@ -90,13 +130,13 @@
             <span class="playBtn">></span>
           </td>
           <td class="timeBtn" id="fasterBtn">
-            <span class="fasterBtn">>></span>            
+            <span class="fasterBtn">>></span>
           </td>
           <td class="unicodeMagnifier">&#x1F50E;</td>
           <td id="zoomMin"><span class=zoomMin>-</span></td>
-          <td id="zoomMax"><span class=zoomMax>+</span></td>  
+          <td id="zoomMax"><span class=zoomMax>+</span></td>
         </tr>
-          
+
         <tr>
           <td class="dateTime" colspan="3">
             <span id="date"> 0</span>
@@ -105,11 +145,11 @@
           </td>
         </tr>
       </table>
- 
-      
+
+
 
       <section class="gateStateData">
-        <p>money M<span id="money">1605.5</span></p>
+        <p>money €<span id="money">1605.5</span></p>
         <p>roads<span id="roads"> 0</span></p>
         <p>houses<span id="housesCounter"> 0</span></p>
       </section>
@@ -144,7 +184,7 @@
 
       <!-- top level animation/birds/planes/drones -->
       <canvas id="canvasBirdLevel"></canvas>
-      
+
       <!-- Indicating plot is available for selected action, semi-transparent layer over all animation on plot -->
       <canvas id="canvasHovercraft"></canvas>
 
@@ -161,20 +201,17 @@
       <section id="btnBuild" class="btnBuild">
         <div class="btn" id="house">Houses</div>
         <div class="btn" id="road">Roads</div>
-        <div class="btn" id="hospital">Hospital</div>
-        <div class="btn" id="nightClub">Night Club</div>
         <div class="btn" id="park">Park</div>
-        <div class="btn" id="fireStation">fireStation</div>
-        <div class="btn" id="policeDept">PoliceDept</div>
-        <div class="btn">Services</div>
-        <div class="btn">Utilities</div>
-        <div class="btn">Moloch</div>
-        <div class="btn">Terrain</div>
-        <div class="btn" id="bulldozer">Bulldozer</div> 
+        <div class="btn" id="hospital">Medical</div>
+        <div class="btn" id="fire">Fire</div>
+        <div class="btn" id="police">Police</div>
+        <div class="btn" id="nightClub">Entertainment</div>
+        <!-- <div class="btn">Services</div>
+        <div class="btn">Utilities</div> -->
+        <!-- <div class="btn">Moloch</div>
+        <div class="btn">Terrain</div> -->
+        <div class="btn" id="bulldozer">Bulldozer</div>
       </section>
-    </aside>
-
-    <aside id="buildOptions" class="buildOptions">
     </aside>
 
     <aside class="dataButtons">
@@ -189,9 +226,81 @@
     </aside>
 
 
+  <section class='buildOptionsModal' id=buildOptionsModal>
+    <div class='buildOptionsTitle'>Options</div>
+    <div class='buildOptionsContainer' id='buildOptionsContainer'>
+
+      <!-- <table class='buildOptionTile buildOptionTileNotPossible'>
+        <caption>Single lane Road</caption>
+        <td class='buildOptionText'>
+          <table>
+            <tr>
+              <td>
+                FADED ITEM you can't buy
+                buildcosts 10coins
+                tax-costs 1/hour
+                10residents extra needed
+                Build tax-costs
+              </td>
+            </tr>
+          </table>
+        </td>
+      </table> -->
+
+      <!-- <table class='buildOptionTile'>
+        <caption>2-lane Road</caption>
+        <tr>
+          <td class='exampleImage'>
+            <canvas class='CanvasExample' id="2-lane_Road" width=100 height=100></canvas>
+          </td>
+        </tr>
+        <tr>
+          <td class='buildOptionText'>
+            <table>
+              <tr>
+                <td>Build costs</td>
+                <td>€10.000</td>
+              </tr>
+              <tr>
+                <td>Maintenance</td>
+                <td>€10</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <table class='buildOptionTile'>
+        <caption>Small Office</caption>
+        <tr>
+          <td class='exampleImage'>
+            <canvas class='CanvasExample' id="buildOptionExampleNightClub" width=100 height=100></canvas>
+          </td>
+        </tr>
+        <tr>
+          <td class='buildOptionText'>
+            <table>
+              <tr>
+                <td>Build costs</td>
+                <td>€10.000</td>
+              </tr>
+              <tr>
+                <td>Income</td>
+                <td>€100</td>
+              </tr>
+              <tr>
+                <td>Residents</td>
+                <td>>200</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+ -->
+    </div> <!-- End buildOptionsContainer -->
+  </section>
+
 
   <!-- </div>End Wrapper -->
-
-  
 </body>
 </html>

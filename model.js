@@ -106,7 +106,19 @@ for(i=0; i<nSize; i++){
           animationY: 0, // animation x & y is for swimmer in pool
           animationYConst: 0,
           swimDirection: 'up' 
-        }
+        },
+        traffic: {
+          route: {
+            origin: [i, j],
+            destination: [],
+            currentLocation: [i, j],
+            currentCoordinatesPixels: [],
+            currentCoordinatesPixelsWithinPlot: [],
+            direction: '',
+            arrived: false,    
+            color: '#777'      
+          },
+        },
       },
       treeLevel: {
         type: 'none',
@@ -166,6 +178,22 @@ let nRoads = 0;
 
 
 
+
+// Create road piece where test car drives
+aGrid[1][1] = {
+  canvasX: 100,
+  canvasY: 100,
+  carAccesLeft: true,
+  carAccesRight: true,
+  exitLeft: false,
+  exitRight: false,
+  hovercraft: "",
+  name: "r1c1",
+};
+aRoads[1][1] = {
+  direction: "dead",
+  type: "2lane",
+};
 
 
 
