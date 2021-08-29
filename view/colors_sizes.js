@@ -3,9 +3,6 @@
 
 
 //════════╡ CREATE TOOLBOX FOR STYLING / ANIMATING / ANIMATION ╞═════════════
-// Standard Colors
-var colAlert = 'tomato';
-var colText = 'aqua';
 
 // standard purple = #541388
 // standard pink   = #d40078

@@ -26,6 +26,8 @@ body {
   /* height: fit-content; */
   /* display: grid; */
   position: relative;
+  /* cursor: pointer; */
+
 }
 
 p {
@@ -179,12 +181,11 @@ header {
   /* opacity: 0.3; */
   border: 1px solid black;
   /* outline: 1px solid black; */
-
 }
 .messagesSection p {
   padding: 4px 0 0 2px;
 }
-#messages {
+.messages {
   /* width: 100px; */
   padding: 0;
   margin: 0 0 0 0;
@@ -193,6 +194,13 @@ header {
   color: white;
   /* text-shadow: 2px 2px 8px white; */
 }
+.messageAlert {
+  color: red;
+} 
+.messageText {
+  color: white;
+} 
+
 /* END MESSAGES */
 
 .gameTitle {
@@ -210,6 +218,19 @@ header {
 
 
 /* BUTTONS */
+.buildButtons {
+  display: grid;
+  position: fixed;
+  top: 81px;
+  left: 5px;
+  width: fit-content;
+  min-width: 120px;
+  margin: 0 0 0 0;
+  /* z-index: 3; */
+}
+.btnBuild, .btnTools {
+  display: none;
+}
 .btn {
   background-color: rgba(0, 0, 0, 0.4);
   border: 1px solid black;
@@ -224,23 +245,14 @@ header {
   /* z-index: 3; */
 }
 .btn:hover {
+  color: #333;
+  background-color: rgba(200, 200, 200, 0.4);
   /* color: grey;
   background: silver; */
 }
-.buildButtons {
-  display: grid;
-  position: fixed;
-  top: 81px;
-  left: 5px;
-  width: fit-content;
-  min-width: 120px;
-  margin: 0 0 0 0;
-  /* z-index: 3; */
-}
-.btnBuild, .btnTools {
-  border-right: '3px solid hotpink';
-  display: none;
-  /* z-index: 3; */
+.constructionAndToolButton_active {
+  color: #333;
+  background-color: rgba(200, 200, 200, 0.4);
 }
 .dataButtons {
   position: fixed;
@@ -417,6 +429,7 @@ canvas {
 
 
 
+/* Start basicColors */
 
 
 
@@ -535,7 +548,6 @@ canvas {
     background-color: cornflowerblue;
   }
   
-
   body {
     background-color: #241734;
     /* height: 100vh; */
@@ -543,153 +555,10 @@ canvas {
   }
 
 
-/*
-  p {
-    padding: 0;
-    margin: 0;
-    font-size: 0.7em;
-  }
- */ 
-  /* .wrapper {} */
-  
-  /* HEADER */
-  /*
-  header {
-    position: fixed;
-    z-index: 1;
-    height: 69px;
-    width: 99vw;
-    max-width: 1393px;
-    margin: 5px;
-    border: 3px solid #f6019d;
-  
-    display: grid;
-    grid-template-areas:
-    'header header header header header header'
-    'menu main main main right right'
-    'menu footer footer footer footer footer';
-    grid-gap: 10px;
-    background-color: #541388;
-  }
-  */
-  /* MESSAGES */
-  
-  .messagesSection {
-    /* position: absolute; */
-    /* top: 581px; */
-    /* left: 150px; */
-    /* width: 170px; */
-    /* margin: 0 0 0 0.3em; */
-  }
-  /*
-  .messagesSection p {
-    padding: 0 0 0 0;
-  }
-  #messages {
-    padding: 0;
-    margin: 0 0 0 0;
-    font-size: 0.5em;
-  }
-  */
-  /* END MESSAGES */
-  
-  h1 {
-    /* color: #d40078;
-    padding: 10px 0;
-    margin: 0px;
-    font-size: 2em;
-    text-align: center;
-    font-style: italic; */
-  }
-  /* END HEADER */
-  
-  
-  /* BUTTONS */
-  .buttons {
-    /* position: fixed;
-    top: 85px;
-    left: 5px;
-    z-index: 1;
-    width: 75px;
-    margin: 0px 0 0 0;
-    height: 200px; */
-  }
-  button {
-    /* background-color: aqua;
-    border-color:  #f6019d;
-    outline: none;
-    font-weight: bold;
-    width: 100%;
-    padding: 3px;
-    margin: 0;
-    color: #541388; */
-  }
-  #zoomMax, #inspect {
-    /* margin-top: 1em; */
-  }
-  #zoomMed {
-    /* color: aqua;
-    background-color: hotpink; */
-  }
-  .btnBuild {
-    /* border-right: '3px solid hotpink'; */
-  }
-  .buildOptions {
-    /* width: 110px; */
-    /* display: flexbox; */
-    /* height: 97px; */
-    /* position: fixed;
-    top: 85px;
-    left: 80px;
-    margin-right: 3px;
-    background-color: #541388;
-    border: 2px solid #f6019d;
-    border-left: none; */
-    /* display: none; */
-  }
-  
-  .hover {
-    /* background: red; */
-  }
-  .nothover {
-    /* color: red; */
-  }
-  
-  
-  canvas {
-    /* position: absolute;
-    top: 85px;
-    left: 198px;
-    border: 3px solid #f6019d;
-    image-rendering: pixelated; */
-    /* image-rendering: crisp-edges; */
-  }
-  
-  
-  /* DATA ELEMENT*/
-  .data {
-    /* position: absolute;
-    top: 460px;
-    height: 240px;
-    border: 2px solid #f6019d;
-    width: 169px;
-    background-color: #541388; */
-  }
-  /* GAME STATE DATA */
-  .game-data {
-    /* background-color: antiquewhite; */
-    /* position: absolute; */
-    /* height: 100px; */
-    /* width: 130px; */
-    /* top: 581px; */
-    /* float: left;
-    padding: 0.2em 0 0 0.3em; */
-  }
-  .game-data p {
-    /* padding: 0.1em 0 0 0;
-    margin: 0;
-    left: 0; */
-  }
-  /* END GAME STATE DATA */
+
+
+
+
+
 
 }

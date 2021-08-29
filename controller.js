@@ -47,10 +47,25 @@ window.onload = function(){
   const eBtnRoad = document.getElementById('road');
   const eBtnPolice = document.getElementById('police');
 
-  const aMouseButtons = [eBtnHouses,eBtnRoad,eBtnInspect,eBtnBulldozer];
   const eBtnZoomMax = document.getElementById('zoomMax');
   const eBtnZoomMin = document.getElementById('zoomMin');
   const eBtnNewCity = document.getElementById('newCity');
+
+  const aConstructionAndToolButtons = [ 
+    // Construction Buttons
+    eBtnHouses,
+    eBtnRoad,
+    eBtnPark,
+    eBtnHospital,
+    eBtnFire,
+    eBtnPolice,
+    eBtnNightClub,
+    eBtnBulldozer,       
+    // Tool Buttons
+    eBtnInspect,
+    eBtnNewCity,
+  ];
+
   // Text Messages and Guide
   const eMessages = document.getElementById('messages')
   let sErrorMessage;
@@ -79,6 +94,8 @@ window.onload = function(){
         toggleEBtnBuild = false;
       } else {
         eBtnBuild.style.display = "none";
+        buildOptionsModal.style.visibility = 'hidden';    
+
         eToggleConstructionBtn.style.color = "white"
         eToggleConstructionBtn.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
         toggleEBtnBuild = true;
@@ -266,19 +283,25 @@ window.onload = function(){
   }
   //════════╡ END CALCULATE SETTINGS FOR ZOOM LEVEL ╞══════════════════════════
 
+
+  //════════╡ ADJUST CSS AFTER CLICK ON CONSTRUCT OR TOOL BUTTON ╞═════════════
   // Change css for buttons when clicked
   eventListenersOnConstructionButtons = () => {
-    for(i=0; i<aMouseButtons.length; i++){
-      if(i % 2 === 1) {
-      //  aMouseButtons[i].style.background ='red';
-      }
-      aMouseButtons[i].addEventListener('click', function(){
-        fnBtnMouseCSS(sMouseMode);
-//        fnBtnMessage(eMessages, sMouseMode);  
-}  );
-    }
+    aConstructionAndToolButtons.forEach(constructionAndToolButton => {
+      constructionAndToolButton.addEventListener('click', function(){
+
+        // Reset CSS on other buttons
+        aConstructionAndToolButtons.forEach(constructionAndToolButton => {
+          constructionAndToolButton.className = 'btn';
+        });
+        // Set CSS for active button
+        constructionAndToolButton.className = 'btn constructionAndToolButton_active';
+     });
+    })
   }
   eventListenersOnConstructionButtons();
+  //══════╡ END ADJUST CSS AFTER CLICK ON BUTTON ╞═════════════════════════════
+
   //════════╡ END EVENT LISTENERS ╞════════════════════════════════════════════
 
 
@@ -364,7 +387,8 @@ window.onload = function(){
         } // End of switch
 
         // Send New GameState Data to screen
-        fnGameStateData();
+        // Displays money, number of houses, etc 
+        fnDisplayGameStateData();
 
       } // End if fnCheckAvailability was true
       else {
@@ -643,12 +667,12 @@ window.onload = function(){
   };
   //══════╡ RENDER MODAL WITH BUILD OPTIONS ╞══════════════════════════════════
   function renderConstructionOptionsModal(typeOfConstruction) {
-    // OLD WAY
+    // OLD WAY was to simply put string in sMouseMode
     // sMouseMode = typeOfConstruction;
     sMouseMode = '';
 
     buildOptionsModal.style.visibility = 'inherit';    
-    console.log('type = ', typeOfConstruction)
+    console.log('renderConstructionOptionsModal type = ', typeOfConstruction)
     // Delete options from previous time
     buildOptionsContainer.innerHTML = null;
     constructionOptions[typeOfConstruction].forEach(item => {
@@ -658,7 +682,7 @@ window.onload = function(){
   }
 
   function createConstructionOptions(typeOfConstruction) {
-    console.log('den dees doet het = ', typeOfConstruction)
+    console.log('createConstructionOptions type constructie = ', typeOfConstruction)
     const table = document.createElement('table');
     table.classList = 'buildOptionTile';
     table.onclick = () => selectThisTypeOfConstruction(typeOfConstruction)

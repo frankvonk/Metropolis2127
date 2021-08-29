@@ -8,7 +8,7 @@ var sTestLinkModel = ' Model,';
 // Grid Plot on the game board / canvas, in pixels.
 const plot = 100;
 
-// numplots could later be split up in height/width, now it's a square not rectangle 
+// numplots could later be split up in height/width, now it's a square playing field, not rectangle. 
 var nNumPlots = 9;
 // var nNumPlots = 12;
 
@@ -23,7 +23,7 @@ var nRoadTax2Lane = -1;
 var nHouseTax = 10;
 
 /*
-ARCHEOLOGY CODE HERE
+ARCHEOLOGY CODE HERE, to see where we started from.
 //════════╡ NAME, X+Y COORDINATES, STATE, ╞══════════════════════
 var c1r1 = ['c1r1', 0, 0,      ""]; var c2r1 = ['c2r1', plot, 0,      ""]; var c3r1 = ['c3r1', plot*2, 0,      ""]; var c4r1 = ['c4r1', plot*3, 0, ""];      var c5r1 = ['c5r1', plot*4, 0,      ""]; var c6r1 = ['c6r1', plot*5, 0,      ""]; var c7r1 = ['c7r1', plot*6, 0,      ""];
 var c1r2 = ['c1r2', 0, plot*1, ""]; var c2r2 = ['c2r2', plot, plot*1, ""]; var c3r2 = ['c3r2', plot*2, plot*1, ""]; var c4r2 = ['c4r2', plot*3, plot, ""];   var c5r2 = ['c5r2', plot*4, plot,   ""]; var c6r2 = ['c6r2', plot*5, plot,   ""]; var c7r2 = ['c7r2', plot*6, plot,   ""];
@@ -69,12 +69,14 @@ let aStructures = [];
 
 for(i=0; i<nSize; i++){
 
+  // Initialize two-dimensional Arrays representing the playing field.
   let horizontalArrayAnimation = [];
   let horizontalArrayEconomy = [];
   let horizontalArrayGrid = [];
   let horizontalArrayRoads = [];
   let horizontalArrayStructures = [];
 
+  // Give these arrays the same amount of items as there are plots on the board.
   for(j=0; j<nSize; j++){
     horizontalArrayAnimation.push(0);
     horizontalArrayEconomy.push(0);
@@ -90,6 +92,8 @@ for(i=0; i<nSize; i++){
   aStructures.push(horizontalArrayStructures);
 
 
+  // We've just created the twodimensional arrays to represent the game baord.
+  // The plots will now all recieve their intial state.
   for(j=0; j<nSize; j++){
 
     aAnimation[i][j] = {
@@ -168,7 +172,8 @@ for(i=0; i<nSize; i++){
 }
 
 // Simple houses counter for speed optimization
-// later expand with housetax and sizes 
+// so you won't have to loop the gamestate arrays.
+// later expand with housetax and sizes.
 let nHouses = 0;
 // Current amount of money
 let nMoney = 0;
@@ -178,8 +183,7 @@ let nRoads = 0;
 
 
 
-
-// Create road piece where test car drives
+// Create road piece where test car drives on the first usable plot - top left corner.
 aGrid[1][1] = {
   canvasX: 100,
   canvasY: 100,
@@ -194,7 +198,14 @@ aRoads[1][1] = {
   direction: "dead",
   type: "2lane",
 };
+// nRoads = 1;
 
+
+
+// Display money, number of houses, etc 
+setTimeout(() => {
+  fnDisplayGameStateData();
+}, 500);
 
 
 
@@ -205,7 +216,7 @@ aRoads[1][1] = {
 
 
 
-// Retrieve gamestate data from cookie on startup
+// Retrieve gamestate data from the browsers localstorage on startup.
 if(JSON.parse(localStorage.getItem('userGameStateDump')) === null) {
   console.log('No cookie Detected');
 }

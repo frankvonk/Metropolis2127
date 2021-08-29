@@ -8,7 +8,6 @@ var sTestLinkView = ' View,';
 
 //════════╡ GLOBAL VARIABLES ╞═══════════════════════════════════════════════
 // Buttons
-let eBtnMouseMode = "";
 let i, j;
 // Messages and Errors to screen
 let sMessage;
@@ -19,7 +18,8 @@ let sMessage;
 
 //════════╡ GAMESTATE DATA AND MESSAGES ╞═════════════════════════════════════
 // Send GameState Data to Screen
-function fnGameStateData(){
+// Displays money, number of houses, etc 
+function fnDisplayGameStateData(){
   document.getElementById('money').innerHTML = ' ' + nMoney;
   document.getElementById('roads').innerHTML = ' ' + nRoads;
   document.getElementById('housesCounter').innerHTML = ' ' + nHouses;
@@ -28,39 +28,39 @@ function fnGameStateData(){
 function fnBtnMessage(eMessages, sMessage){
   switch (sMessage){
     case "":
-      eMessages.style.color = colAlert;
+      eMessages.className = 'messages messageAlert ';
       eMessages.innerHTML = "First select an action to perform";
       break;
     case "outsidebounds":
-      eMessages.style.color = colAlert;
+      eMessages.className = 'messages messageAlert ';
       eMessages.innerHTML = "Outside city bounds, pick somewhere else.";
       break;
     case "occupado":
-      eMessages.style.color = colAlert;
+      eMessages.className = 'messages messageAlert ';
       eMessages.innerHTML = "That spot is taken, pick somewhere else.";
       break;
     case 'fire':
-      eMessages.style.color = colText;
+      eMessages.className = 'messages messageText ';
       eMessages.innerHTML = "Fire Fighters are heroes! And Hot!";
       break;  
     case 'house':
-      eMessages.style.color = colText;
+      eMessages.className = 'messages messageText ';
       eMessages.innerHTML = "Sure, we need houses! Go nuts!";
       break;
     case "road":
-      eMessages.style.color = colText;
+      eMessages.className = 'messages messageText ';
       eMessages.innerHTML = "Roads are awesome!";
       break;
     case "police":
-      eMessages.style.color = colText;
+      eMessages.className = 'messages messageText ';
       eMessages.innerHTML = "Police helps fight crime! Don't defund!";
       break; 
     case 'inspect':
-      eMessages.style.color = colText;
+      eMessages.className = 'messages messageText ';
       eMessages.innerHTML = "Click on a plot to get information.";
       break;
     case 'bulldozer':
-      eMessages.style.color = colText;
+      eMessages.className = 'messages messageText ';
       eMessages.innerHTML = "Clink on a structure to destroy it."
   } // End switch
 } //══════╡ END GAMESTATE DATA AND MESSAGES ╞════════════════════════════════
@@ -69,67 +69,50 @@ function fnBtnMessage(eMessages, sMessage){
 //════════╡ INSPECTIONTOOL ╞═════════════════════════════════════════════════
 // Send GameState Data to Screen when using inspection tool
 function fnInspect(eMessages, aPlotClicked, y, x){
-  eMessages.style.color = colText;
-  if(aPlotClicked[3] == ""){
+  console.log(aPlotClicked)
+  console.log('aStructures[y][x]',aStructures[y][x])
+  eMessages.className = 'messages messageText ';
+  if(aPlotClicked.typeStructure == ""){
     sMessage = "There is nothing built there";
   }
-  else if(aPlotClicked[3] == "structure"){
-    if(aStructures[y][x].type == 'house'){
-      sMessage = "That's a " + aStructures[y][x].type + '.';
-      // ALSO ADD TAX ETC.
+  else if(aPlotClicked.typeStructure == "structure"){
+    switch(aStructures[y][x].type) {
+      case 'house':
+        sMessage = "That's a " + aStructures[y][x].type + '.';
+        // ALSO ADD TAX ETC.
+        break;
+      case 'fire':
+        sMessage = 'That\'s a Fire Station ';
+        sMessage += ' They have put out 6 fires last month! ';
+        break;
+      case 'police':
+        sMessage = 'That\'s a Police Station ';
+        sMessage += ' They have put out 6 fires last month! ';
+        break;
     }
   }
-  else if(aPlotClicked[3] == 'road'){
-//    if(aRoads[y][x].type == 'road'){
-      sMessage = 'That\'s a '+aRoads[y][x].type+' '+ aPlotClicked[3];
-//      sMessage += aEconomy[y][x];
-//    }
-  }
-  else if(aPlotClicked[3] == 'police'){
-    //    if(aRoads[y][x].type == 'road'){
-          sMessage = 'That\'s a '+aRoads[y][x].type+' '+ aPlotClicked[3];
-    //      sMessage += aEconomy[y][x];
-    //    }
+  else if(aPlotClicked.typeStructure == 'road'){
+    // Later on, there will be more types of roads & pathways
+    if(aRoads[y][x].type == '2lane'){
+      sMessage = 'That\'s a 2 lane road';
+      // sMessage += aEconomy[y][x];
+    }
   }
 
-  else if(aPlotClicked[3] == 'fire'){
-    //    if(aRoads[y][x].type == 'road'){
-          sMessage = 'That\'s a '+aRoads[y][x].type+' '+ aPlotClicked[3];
-          sMessage += ' They have put out 6 fires last month! ';
-    //    }
-  }
     
- //   sMessage = "That's a " + aPlotClicked[3] + '.';
-    // if else depending on tax income or spending
-    if (aEconomy[y][x] < 0) {sMessage += "<br>Tax Cost is " + aEconomy[y][x] + " /hr.";}
-    else if (aEconomy[y][x] > 0) {sMessage += "<br>Tax Income is " + aEconomy[y][x] + " /hr.";}
-//    eMessages.innerHTML = sMessage;
-//    console.log(sMessage);
+  // sMessage = "That's a " + aPlotClicked[3] + '.';
+  // if else depending on tax income or spending
+  if (aEconomy[y][x] < 0) {
+    sMessage += "<br>Tax Cost is " + aEconomy[y][x] + " /hr.";
+  }
+  else if (aEconomy[y][x] > 0) {
+    sMessage += "<br>Tax Income is " + aEconomy[y][x] + " /hr.";
+  }
   eMessages.innerHTML = sMessage;
   sMessage = '';
 } //══════╡ END INSPECTIONTOOL ╞═════════════════════════════════════════════
 
 
-//════════╡ ADJUST CSS AFTER CLICK ON BUTTON ╞═══════════════════════════════
-function fnBtnMouseCSS(sMouseMode) {
-  // Depending on mouseMode (which button clicked) adjust CSS for corresponding
-  // button to visualize current type of action and reset other buttons to normal css
-  if(eBtnMouseMode != ""){
-    // eBtnMouseMode.style.color = '#541388';
-    // eBtnMouseMode.style.backgroundColor = 'aqua';
-    // eBtnMouseMode.style.borderRight = '3px solid hotpink';
-  }
-  // Store current button in eBtn for styling CSS
-  eBtnMouseMode = document.getElementById(sMouseMode);
-  //  document.getElementById(mouseMode).innerHTML += ' pressed';
-  // eBtnMouseMode.style.color = 'aqua';
-  // eBtnMouseMode.style.backgroundColor = '#541388'; // purple
-  // eBtnMouseMode.style.borderRight = 'none';
-  // eBtnMouseMode.style.outline = 0;
-  if(sMouseMode == 'bulldozer' || sMouseMode == "inspect"){
-    // eBtnMouseMode.style.borderRight = '3px solid hotpink';
-  }
-} //══════╡ END ADJUST CSS AFTER CLICK ON BUTTON ╞═══════════════════════════
 
 
 //════════╡ FUNCTION FOR ANIMATION ON CANVAS ╞═══════════════════════════════
