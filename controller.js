@@ -30,7 +30,7 @@ window.onload = function(){
   const c = eCanvas.getContext("2d", { alpha: false });
   // Cars/Pedestrians
   const eCanvasPedestrianLevel = document.getElementById('canvasPedestrianLevel');
-  const cp = eCanvas.getContext("2d");
+  const cP = eCanvas.getContext("2d");
   // Hovering colorblock displaying whether or not current action is allowed on desired plot 
   const eCanvasHovercraft = document.getElementById('canvasHovercraft');
   const cHov = eCanvasHovercraft.getContext("2d");

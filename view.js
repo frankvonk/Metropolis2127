@@ -87,7 +87,7 @@ function fnInspect(eMessages, aPlotClicked, y, x){
         break;
       case 'police':
         sMessage = 'That\'s a Police Station ';
-        sMessage += ' They have put out 6 fires last month! ';
+        sMessage += ' They have just caught the Bay Harbor Butcher! ';
         break;
     }
   }
@@ -322,7 +322,7 @@ function hovercraft(cHov, x, y, cHoverColor){
 
 //════════╡ BUILD HOUSE TOP FUNCTION ╞═══════════════════════════════════════
 function fnBuildHouse(y, x){
-  console.log('win',window.localStorage['houseDesign'] )
+  // console.log('win',window.localStorage['houseDesign'] )
   // Assigns characteristics of the house to the aStructures
 
   // Determine tax level depending on circumstances and chance
@@ -464,42 +464,42 @@ clearCanvas('canvasPedestrianLevel')
     aRoads[y][x].direction = 'dead';
     startingCoordinatesPixels = [plot*j+28, plot*i+78];
     startingCoordinatesPixelsWithinPlot = [28, 78];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'east'
   }
   if(top && right && bottom && left){
     aRoads[y][x].direction = 'intersection';
     startingCoordinatesPixels = [plot*j+44, plot*i+77];
     startingCoordinatesPixelsWithinPlot = [44, 77];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'east'
   }
   else if(top && right && bottom){
     aRoads[y][x].direction = 'tsplit_12_3_6';
     startingCoordinatesPixels = [plot*j+78, plot*i+47];
     startingCoordinatesPixelsWithinPlot = [78, 47];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'north'
   }
   else if(right && bottom && left){
     aRoads[y][x].direction = 'tsplit_3_6_9';
     startingCoordinatesPixels = [plot*j+78, plot*i+47];
     startingCoordinatesPixelsWithinPlot = [78, 47];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'north'
   }
   else if(bottom && left && top){
     aRoads[y][x].direction = 'tsplit_6_9_12';
     startingCoordinatesPixels = [plot*j+78, plot*i+47];
     startingCoordinatesPixelsWithinPlot = [78, 47];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'north'
   }
   else if(left && top && right){
     aRoads[y][x].direction = 'tsplit_9_12_3';
     startingCoordinatesPixels = [plot*j+78, plot*i+47];
     startingCoordinatesPixelsWithinPlot = [78, 47];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'north'
     aAnimation[i][j].pedestrianLevel.traffic.route.color = 'gold'
   }
@@ -507,7 +507,7 @@ clearCanvas('canvasPedestrianLevel')
     aRoads[y][x].direction = 'corner_12_3';
     startingCoordinatesPixels = [plot*j+28, plot*i+78];
     startingCoordinatesPixelsWithinPlot = [28, 78];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'east'
     aAnimation[i][j].pedestrianLevel.traffic.route.color = 'purple'
   }
@@ -515,14 +515,14 @@ clearCanvas('canvasPedestrianLevel')
     aRoads[y][x].direction = 'corner_3_6';
     startingCoordinatesPixels = [plot*j+18, plot*i+27];
     startingCoordinatesPixelsWithinPlot = [18, 27];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'south'
   }
   else if(bottom && left){
     aRoads[y][x].direction = 'corner_6_9';
     startingCoordinatesPixels = [plot*j+64, plot*i+16];
     startingCoordinatesPixelsWithinPlot = [64, 16];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'west'
     aAnimation[i][j].pedestrianLevel.traffic.route.color = 'hotpink'
   }
@@ -530,7 +530,7 @@ clearCanvas('canvasPedestrianLevel')
     aRoads[y][x].direction = 'corner_9_12';
     startingCoordinatesPixels = [plot*j+78, plot*i+47];
     startingCoordinatesPixelsWithinPlot = [78, 47];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'north'
     aAnimation[i][j].pedestrianLevel.traffic.route.color = 'cornflowerblue'
   }
@@ -538,14 +538,14 @@ clearCanvas('canvasPedestrianLevel')
     aRoads[y][x].direction = 'straight_12_6';
     startingCoordinatesPixels = [plot*j+78, plot*i+47];
     startingCoordinatesPixelsWithinPlot = [78, 47];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'north'
   }
   else if(right && left){
     aRoads[y][x].direction = 'straight_3_9';
     startingCoordinatesPixels = [plot*j+28, plot*i+77];
     startingCoordinatesPixelsWithinPlot = [28, 77];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'east'
     aAnimation[i][j].pedestrianLevel.traffic.route.color = 'green'
   }
@@ -553,14 +553,14 @@ clearCanvas('canvasPedestrianLevel')
     aRoads[y][x].direction = 'dead_12';
     startingCoordinatesPixels = [plot*j+77, plot*i+60];
     startingCoordinatesPixelsWithinPlot = [77, 60];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'north'
   }
   else if(right){
     aRoads[y][x].direction = 'dead_3';
     startingCoordinatesPixels = [plot*j+28, plot*i+77];
     startingCoordinatesPixelsWithinPlot = [28, 77];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'east'
     aAnimation[i][j].pedestrianLevel.traffic.route.color = 'orange'
   }
@@ -568,14 +568,14 @@ clearCanvas('canvasPedestrianLevel')
     aRoads[y][x].direction = 'dead_6';
     startingCoordinatesPixels = [plot*j+16, plot*i+30];
     startingCoordinatesPixelsWithinPlot = [16, 30];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'south'
   }
   else if(left){
     aRoads[y][x].direction = 'dead_9';
     startingCoordinatesPixels = [plot*j+63, plot*i+16];
     startingCoordinatesPixelsWithinPlot = [63, 16];
-    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixels = startingCoordinatesPixels;
+    aAnimation[i][j].pedestrianLevel.traffic.route.currentCoordinatesPixelsWithinCanvas = startingCoordinatesPixels;
     aAnimation[i][j].pedestrianLevel.traffic.route.direction = 'west'
   }
 } //══════╡ END ASSIGN THE DIRECTION OF THE ROAD ╞═══════════════════════════
@@ -700,6 +700,7 @@ function fnAnimateOutsidePlayerReach(c){
 
 // FRAMERATE USED FOR CALLING FNMAINANIMATION 24 TIMES PER SECOND
 let MilisecondsPerFrame = 41;
+ MilisecondsPerFrame = 11;
 // MilisecondsPerFrame = 1;
 // MilisecondsPerFrame = 541;
 //MilisecondsPerFrame = 2000;
@@ -718,9 +719,9 @@ setTimeout(() => {
 // Main Animation Loop 24 Frames Per Second
 setTimeout(() => {
   setInterval(() => {
-   fnAnimationPedestrianLevelFrameRate();
      fnAnimationPedestrianLevelFrameRate();
-     fnAnimationPedestrianLevelFrameRate();
+    //  fnAnimationPedestrianLevelFrameRate();
+    //  fnAnimationPedestrianLevelFrameRate();
   }, MilisecondsPerFrame);
 }, 200);
 

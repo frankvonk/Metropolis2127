@@ -115,8 +115,8 @@ for(i=0; i<nSize; i++){
           route: {
             origin: [i, j],
             destination: [],
-            currentLocation: [i, j],
-            currentCoordinatesPixels: [],
+            currentLocationPlotNums: [i, j],
+            currentCoordinatesPixelsWithinCanvas: [],
             currentCoordinatesPixelsWithinPlot: [],
             direction: '',
             arrived: false,    
