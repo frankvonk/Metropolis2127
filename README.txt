@@ -5,4 +5,4 @@ Synopsis: Build a utopian city aboveground, while keeping the workers below just
 
 Technical Data: Javascript, HTML/CSS. OOP, MVC
 
-Visit and play it right now on: http://www.frankvonk.be/web_development.html (PLAYABLE, YET STILL UNDER CONSTRUCTION)
+Visit and play it right now on: http://www.frankvonk.be/web_development/Metropolis2127/metropolis2127.html (PLAYABLE, YET STILL UNDER CONSTRUCTION)
